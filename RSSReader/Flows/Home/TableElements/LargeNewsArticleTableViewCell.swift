@@ -62,6 +62,9 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         $0.setImage(UIImage(systemName: "bookmark"), for: .normal)
     }
 
+    var bookmarkAction: (() -> Void)?
+    var ellipsisAction: (() -> Void)?
+
     var article: RSSItemWithInfo? {
         didSet {
             guard let article else { return }
@@ -111,6 +114,7 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
 
 
         setupConstraints()
+        setupActions()
     }
 
     private func setupConstraints() {
@@ -165,6 +169,16 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
             make.top.equalToSuperview()
             make.trailing.equalTo(ellipsisButton.snp.leading).inset(8)
         }
+    }
+
+    private func setupActions() {
+        bookmarkButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.bookmarkAction?()
+        }), for: .touchUpInside)
+
+        ellipsisButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.ellipsisAction?()
+        }), for: .touchUpInside)
     }
 
 }

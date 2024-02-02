@@ -57,6 +57,9 @@ class SmallArticleTableViewCell: UITableViewCell {
         $0.setImage(UIImage(systemName: "bookmark"), for: .normal)
     }
 
+    var bookmarkAction: (() -> Void)?
+    var ellipsisAction: (() -> Void)?
+
     var article: RSSItemWithInfo? {
         didSet {
             guard let article else { return }
@@ -116,6 +119,7 @@ class SmallArticleTableViewCell: UITableViewCell {
         categoryContainer.addSubview(category)
 
         setupConstraints()
+        setupActions()
     }
 
     private func setupConstraints() {
@@ -159,7 +163,16 @@ class SmallArticleTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(-4)
             make.trailing.equalTo(ellipsisButton.snp.leading).inset(8)
         }
+    }
 
+    private func setupActions() {
+        bookmarkButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.bookmarkAction?()
+        }), for: .touchUpInside)
+
+        ellipsisButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.ellipsisAction?()
+        }), for: .touchUpInside)
     }
 
 }

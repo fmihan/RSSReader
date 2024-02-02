@@ -62,11 +62,13 @@ class MediumArticleTableViewCell: UITableViewCell {
         $0.setImage(UIImage(systemName: "bookmark"), for: .normal)
     }
 
+    var bookmarkAction: (() -> Void)?
+    var ellipsisAction: (() -> Void)?
+
     var article: RSSItemWithInfo? {
         didSet {
             guard let article else { return }
 
-           
             label.text = article.item?.title
             source.text = article.getPublisherAndTime()
             sourceImage.isHidden = article.publisher?.image?.url == nil
@@ -114,6 +116,7 @@ class MediumArticleTableViewCell: UITableViewCell {
         categoryContainer.addSubview(category)
 
         setupConstraints()
+        setupActions()
     }
 
     private func setupConstraints() {
@@ -166,6 +169,16 @@ class MediumArticleTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(-4)
             make.trailing.equalTo(ellipsisButton.snp.leading).inset(8)
         }
+    }
+
+    private func setupActions() {
+        bookmarkButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.bookmarkAction?()
+        }), for: .touchUpInside)
+
+        ellipsisButton.addAction(UIAction(handler: { [weak self] _ in
+            self?.ellipsisAction?()
+        }), for: .touchUpInside)
     }
 
 }
