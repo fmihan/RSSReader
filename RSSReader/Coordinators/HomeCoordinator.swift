@@ -22,7 +22,7 @@ class HomeCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-        let home = UIViewControllerFactory.createHomeViewController()
+        let home = UIViewControllerFactory.createHomeParchmentViewController()
         navigationController.setViewControllers([home], animated: false)
     }
 }

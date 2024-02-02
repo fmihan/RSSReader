@@ -10,21 +10,19 @@ import Foundation
 
 protocol FeedServiceProtocol {
     // MARK: - Publihsers
+    var refreshViewsPublisher: AnyPublisher<Void, Never> { get }
     var isRefreshingPublisher: AnyPublisher<Bool, Never> { get }
     var updatedItemPublisher: AnyPublisher<String, Never> { get }
-    var feedPublisherPublisher: AnyPublisher<[RSSItemWithInfo], Never> { get }
     var removedFeedPublisher: AnyPublisher<String, Never> { get }
+    var subscibedPortalsPublisher: AnyPublisher<[RealmRSSFeed], Never> { get }
 
     // MARK: - Network Calls
     func refreshFeed()
     func addNewFeed(with url: String)
-    func requestSummary(for providerIds: [String])
 
     // MARK: - Local queries
-
-    func fetchFeed()
-    func searchFor(_ searchText: String)
-    func showItemsFor(provider id: String)
+    func searchFor(_ searchText: String) -> AnyPublisher<[RSSItemWithInfo], Never>
+    func fetchFeed(withPublisherId id: String?) -> AnyPublisher<[RSSItemWithInfo], Never>
 
     // MARK: - RSS Actions
     func bookmarkItem(_ id: String)

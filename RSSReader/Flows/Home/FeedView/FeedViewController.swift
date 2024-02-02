@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  FeedViewController.swift
 //  RSSReader
 //
 //  Created by Fabijan Mihanović on 26.01.2024..
@@ -11,9 +11,9 @@ import Combine
 import RealmSwift
 import FeedKit
 
-class HomeViewController: UIViewController {
+class FeedViewController: UIViewController {
 
-    var viewModel: HomeViewModel!
+    var viewModel: FeedViewModel!
 
     var tableView: UITableView?
     var cancellables = Set<AnyCancellable>()
@@ -24,16 +24,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         bindViewModel()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
 
     func setupUI() {
@@ -75,8 +65,8 @@ class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
-    
+extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfItems()
     }
@@ -104,15 +94,3 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
-
-extension HomeViewController: UISearchBarDelegate {
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.search(text: searchText)
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.search(text: "")
-    }
-}
-

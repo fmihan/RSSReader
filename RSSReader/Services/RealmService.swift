@@ -25,8 +25,6 @@ class RealmService: RealmServiceProtocol {
         } catch {
             fprint("Realm init error = \(error)", type: .realmSavingError, isError: true)
         }
-
-        deleteAll()
     }
 
     // MARK: - FeedKit Mappers

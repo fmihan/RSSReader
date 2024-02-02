@@ -188,6 +188,23 @@
         }
       }
     },
+    "home.mixed.feed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For You"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Za Vas"
+          }
+        }
+      }
+    },
     "home.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -252,6 +269,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pretraga"
+          }
+        }
+      }
+    },
+    "no.results.home.feed.add.feed.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add feed"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj izvor"
+          }
+        }
+      }
+    },
+    "no.results.home.feed.empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty Feed"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prazna naslovnica"
+          }
+        }
+      }
+    },
+    "no.results.home.feed.empty.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start by adding new RSS feed provider."
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Započnite sa dodavanjem novog RSS izvora."
           }
         }
       }

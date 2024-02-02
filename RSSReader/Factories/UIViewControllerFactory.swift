@@ -11,9 +11,17 @@ class UIViewControllerFactory {
 
     static var dependencies: AppDependency!
 
-    static func createHomeViewController() -> HomeViewController {
-        let viewController = HomeViewController()
-        let viewModel = HomeViewModel(feedService: dependencies.feedService)
+    static func createHomeParchmentViewController() -> MainHomepageViewController {
+        let viewController = MainHomepageViewController()
+        let viewModel = MainHomepageViewModel(feedService: dependencies.feedService)
+        viewController.viewModel = viewModel
+        
+        return viewController
+    }
+
+    static func createFeedViewController(withPublisherId id: String? = nil) -> FeedViewController {
+        let viewController = FeedViewController()
+        let viewModel = FeedViewModel(feedService: dependencies.feedService, specifiedProviderId: id)
         viewController.viewModel = viewModel
         
         return viewController

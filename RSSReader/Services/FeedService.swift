@@ -15,19 +15,24 @@ class FeedService: FeedServiceProtocol {
         isRefreshingSubject.eraseToAnyPublisher()
     }
 
+    private var refreshViewsSubject = PassthroughSubject<Void, Never>()
+    var refreshViewsPublisher: AnyPublisher<Void, Never> {
+        refreshViewsSubject.eraseToAnyPublisher()
+    }
+
     private var updatedItemSubject = PassthroughSubject<String, Never>()
     var updatedItemPublisher: AnyPublisher<String, Never> {
         updatedItemSubject.eraseToAnyPublisher()
     }
 
-    private var feedPublisherSubject = PassthroughSubject<[RSSItemWithInfo], Never>()
-    var feedPublisherPublisher: AnyPublisher<[RSSItemWithInfo], Never> {
-        feedPublisherSubject.eraseToAnyPublisher()
-    }
-
     private var removedFeedSubject = PassthroughSubject<String, Never>()
     var removedFeedPublisher: AnyPublisher<String, Never> {
         removedFeedSubject.eraseToAnyPublisher()
+    }
+
+    private var subscibedPortalsSubject = CurrentValueSubject<[RealmRSSFeed], Never>([])
+    var subscibedPortalsPublisher: AnyPublisher<[RealmRSSFeed], Never> {
+        subscibedPortalsSubject.eraseToAnyPublisher()
     }
 
     private var rssPublishers: [RealmRSSFeed] = []
@@ -44,7 +49,10 @@ class FeedService: FeedServiceProtocol {
     }
 
     private func loadPublisers() {
-        
+        guard let storedPublishers = realm.getPublishers() else { return }
+        let publishers = Array(storedPublishers)
+        rssPublishers = publishers
+        subscibedPortalsSubject.send(publishers)
     }
 
     // MARK: - Network Calls
@@ -52,6 +60,10 @@ class FeedService: FeedServiceProtocol {
     func refreshFeed() {
         isRefreshingSubject.send(true)
 
+    }
+
+    func refreshViews() {
+        refreshViewsSubject.send()
     }
 
     func addNewFeed(with url: String) {
@@ -67,7 +79,7 @@ class FeedService: FeedServiceProtocol {
             }, receiveValue: { [unowned self] response in
                 dump(response.items?.first)
                 realm.manageData(from: response)
-                fetchFeed()
+                refreshViews()
             })
             .store(in: &cancellables)
     }
@@ -78,21 +90,26 @@ class FeedService: FeedServiceProtocol {
 
     // MARK: - Local queries
 
-    func fetchFeed() {
-        let feed = realm.getFeed(withPublisher: nil)
-        feedPublisherSubject.send(feed)
-    }
-
-    func searchFor(_ searchText: String) {
+    func searchFor(_ searchText: String) -> AnyPublisher<[RSSItemWithInfo], Never> {
         if searchText.isEmpty {
-            fetchFeed()
+            return fetchFeed()
         } else {
-            feedPublisherSubject.send(realm.performFuzzySearch(with: searchText))
+            return Future<[RSSItemWithInfo], Never> { [unowned self] promise in
+                let data = realm.performFuzzySearch(with: searchText)
+                let arrayFromResults = Array(data)
+                promise(.success(arrayFromResults))
+            }
+            .eraseToAnyPublisher()
         }
     }
 
-    func showItemsFor(provider id: String) {
-        //
+    func fetchFeed(withPublisherId id: String? = nil) -> AnyPublisher<[RSSItemWithInfo], Never> {
+        return Future<[RSSItemWithInfo], Never> { [unowned self] promise in
+            let data = realm.getFeed(withPublisher: id)
+            let arrayFromResults = Array(data)
+            promise(.success(arrayFromResults))
+        }
+        .eraseToAnyPublisher()
     }
 
     // MARK: - RSS Actions

@@ -20,7 +20,7 @@
 		001DA41E2B63CAB900C16EA0 /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA41D2B63CAB900C16EA0 /* UITableViewExtension.swift */; };
 		001DA4202B63CAC600C16EA0 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA41F2B63CAC600C16EA0 /* UIImageViewExtension.swift */; };
 		001DA4222B63CAD600C16EA0 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA4212B63CAD600C16EA0 /* UIViewControllerExtension.swift */; };
-		001DA4242B63CAE700C16EA0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA4232B63CAE700C16EA0 /* HomeViewController.swift */; };
+		001DA4242B63CAE700C16EA0 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA4232B63CAE700C16EA0 /* FeedViewController.swift */; };
 		001DA4262B63CAF500C16EA0 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA4252B63CAF500C16EA0 /* NavigationViewController.swift */; };
 		001DA4282B63CB1400C16EA0 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA4272B63CB1400C16EA0 /* APIError.swift */; };
 		001DA42A2B63CB2300C16EA0 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001DA4292B63CB2300C16EA0 /* HTTPMethod.swift */; };
@@ -61,7 +61,7 @@
 		0039A7902B6A6A8C00AC7150 /* RSSReaderApiProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A78F2B6A6A8B00AC7150 /* RSSReaderApiProtocol.swift */; };
 		0039A7922B6A6AD800AC7150 /* RSSReaderApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7912B6A6AD800AC7150 /* RSSReaderApi.swift */; };
 		0039A7942B6ACC5B00AC7150 /* RealmRSSFeedItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7932B6ACC5B00AC7150 /* RealmRSSFeedItemCategory.swift */; };
-		0039A7962B6ACDE100AC7150 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7952B6ACDE100AC7150 /* HomeViewModel.swift */; };
+		0039A7962B6ACDE100AC7150 /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7952B6ACDE100AC7150 /* FeedViewModel.swift */; };
 		0039A7982B6C38B600AC7150 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0039A7972B6C38B600AC7150 /* Localizable.xcstrings */; };
 		0039A79A2B6C431600AC7150 /* MediumArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7992B6C431600AC7150 /* MediumArticleTableViewCell.swift */; };
 		0039A79C2B6C431F00AC7150 /* SmallArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A79B2B6C431F00AC7150 /* SmallArticleTableViewCell.swift */; };
@@ -69,6 +69,9 @@
 		0039A7A02B6CC3DC00AC7150 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A79F2B6CC3DC00AC7150 /* MainTabBarViewController.swift */; };
 		0039A7A22B6CC3EA00AC7150 /* TabBarPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7A12B6CC3EA00AC7150 /* TabBarPage.swift */; };
 		0039A7A42B6CC58300AC7150 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7A32B6CC58300AC7150 /* HomeCoordinator.swift */; };
+		0039A7A72B6CCA7E00AC7150 /* Parchment in Frameworks */ = {isa = PBXBuildFile; productRef = 0039A7A62B6CCA7E00AC7150 /* Parchment */; };
+		0039A7B62B6CCD1A00AC7150 /* MainHomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7B52B6CCD1A00AC7150 /* MainHomepageViewController.swift */; };
+		0039A7B82B6CD1FE00AC7150 /* MainHomepageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7B72B6CD1FE00AC7150 /* MainHomepageViewModel.swift */; };
 		005E0D9E2B64F3CE0006D2FD /* RSSItemWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E0D9D2B64F3CE0006D2FD /* RSSItemWithInfo.swift */; };
 		005E0DA12B6534DC0006D2FD /* LargeNewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E0DA02B6534DC0006D2FD /* LargeNewsArticleTableViewCell.swift */; };
 		005E0DA32B653DFF0006D2FD /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E0DA22B653DFE0006D2FD /* UIImageExtension.swift */; };
@@ -110,7 +113,7 @@
 		001DA41D2B63CAB900C16EA0 /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		001DA41F2B63CAC600C16EA0 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		001DA4212B63CAD600C16EA0 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		001DA4232B63CAE700C16EA0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		001DA4232B63CAE700C16EA0 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		001DA4252B63CAF500C16EA0 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		001DA4272B63CB1400C16EA0 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		001DA4292B63CB2300C16EA0 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -145,7 +148,7 @@
 		0039A78F2B6A6A8B00AC7150 /* RSSReaderApiProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSReaderApiProtocol.swift; sourceTree = "<group>"; };
 		0039A7912B6A6AD800AC7150 /* RSSReaderApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSReaderApi.swift; sourceTree = "<group>"; };
 		0039A7932B6ACC5B00AC7150 /* RealmRSSFeedItemCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRSSFeedItemCategory.swift; sourceTree = "<group>"; };
-		0039A7952B6ACDE100AC7150 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		0039A7952B6ACDE100AC7150 /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		0039A7972B6C38B600AC7150 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		0039A7992B6C431600AC7150 /* MediumArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumArticleTableViewCell.swift; sourceTree = "<group>"; };
 		0039A79B2B6C431F00AC7150 /* SmallArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallArticleTableViewCell.swift; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 		0039A79F2B6CC3DC00AC7150 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		0039A7A12B6CC3EA00AC7150 /* TabBarPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarPage.swift; sourceTree = "<group>"; };
 		0039A7A32B6CC58300AC7150 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		0039A7B52B6CCD1A00AC7150 /* MainHomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomepageViewController.swift; sourceTree = "<group>"; };
+		0039A7B72B6CD1FE00AC7150 /* MainHomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHomepageViewModel.swift; sourceTree = "<group>"; };
 		005E0D9D2B64F3CE0006D2FD /* RSSItemWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemWithInfo.swift; sourceTree = "<group>"; };
 		005E0DA02B6534DC0006D2FD /* LargeNewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeNewsArticleTableViewCell.swift; sourceTree = "<group>"; };
 		005E0DA22B653DFE0006D2FD /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -166,6 +171,7 @@
 			files = (
 				001DA4472B63CBE200C16EA0 /* Kingfisher in Frameworks */,
 				001DA4442B63CBD000C16EA0 /* Then in Frameworks */,
+				0039A7A72B6CCA7E00AC7150 /* Parchment in Frameworks */,
 				001DA4412B63CBC200C16EA0 /* RealmSwift in Frameworks */,
 				001DA43F2B63CBC200C16EA0 /* Realm in Frameworks */,
 				001DA4392B63CB9B00C16EA0 /* FeedKit in Frameworks */,
@@ -369,8 +375,8 @@
 			isa = PBXGroup;
 			children = (
 				005E0D9F2B65349F0006D2FD /* TableElements */,
-				001DA4232B63CAE700C16EA0 /* HomeViewController.swift */,
-				0039A7952B6ACDE100AC7150 /* HomeViewModel.swift */,
+				0039A7AF2B6CCAF700AC7150 /* Main */,
+				0039A7B12B6CCB0E00AC7150 /* FeedView */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -474,6 +480,24 @@
 			path = Factories;
 			sourceTree = "<group>";
 		};
+		0039A7AF2B6CCAF700AC7150 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0039A7B52B6CCD1A00AC7150 /* MainHomepageViewController.swift */,
+				0039A7B72B6CD1FE00AC7150 /* MainHomepageViewModel.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		0039A7B12B6CCB0E00AC7150 /* FeedView */ = {
+			isa = PBXGroup;
+			children = (
+				001DA4232B63CAE700C16EA0 /* FeedViewController.swift */,
+				0039A7952B6ACDE100AC7150 /* FeedViewModel.swift */,
+			);
+			path = FeedView;
+			sourceTree = "<group>";
+		};
 		005E0D9C2B64F3BB0006D2FD /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,6 +539,7 @@
 				001DA4402B63CBC200C16EA0 /* RealmSwift */,
 				001DA4432B63CBD000C16EA0 /* Then */,
 				001DA4462B63CBE200C16EA0 /* Kingfisher */,
+				0039A7A62B6CCA7E00AC7150 /* Parchment */,
 			);
 			productName = RSSReader;
 			productReference = 001DA3D12B63C97400C16EA0 /* RSSReader.app */;
@@ -595,6 +620,7 @@
 				001DA43D2B63CBC200C16EA0 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				001DA4422B63CBCF00C16EA0 /* XCRemoteSwiftPackageReference "Then" */,
 				001DA4452B63CBE200C16EA0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0039A7A52B6CCA7E00AC7150 /* XCRemoteSwiftPackageReference "Parchment" */,
 			);
 			productRefGroup = 001DA3D22B63C97400C16EA0 /* Products */;
 			projectDirPath = "";
@@ -652,6 +678,7 @@
 				0039A7902B6A6A8C00AC7150 /* RSSReaderApiProtocol.swift in Sources */,
 				001DA4302B63CB5F00C16EA0 /* CoordinatorProtocol.swift in Sources */,
 				0039A75B2B6952FC00AC7150 /* RealmRSSFeedCategory.swift in Sources */,
+				0039A7B82B6CD1FE00AC7150 /* MainHomepageViewModel.swift in Sources */,
 				0039A7942B6ACC5B00AC7150 /* RealmRSSFeedItemCategory.swift in Sources */,
 				0039A7A22B6CC3EA00AC7150 /* TabBarPage.swift in Sources */,
 				0039A78C2B6A688800AC7150 /* FeedServiceProtocol.swift in Sources */,
@@ -661,15 +688,16 @@
 				0039A7692B69636300AC7150 /* RealmRSSFeedItemEnclosure.swift in Sources */,
 				001DA41C2B63CAAB00C16EA0 /* UILabelExtension.swift in Sources */,
 				001DA4222B63CAD600C16EA0 /* UIViewControllerExtension.swift in Sources */,
-				0039A7962B6ACDE100AC7150 /* HomeViewModel.swift in Sources */,
+				0039A7962B6ACDE100AC7150 /* FeedViewModel.swift in Sources */,
 				0039A78A2B6A676700AC7150 /* UIViewControllerFactory.swift in Sources */,
 				005E0D9E2B64F3CE0006D2FD /* RSSItemWithInfo.swift in Sources */,
 				0039A7702B6964AE00AC7150 /* RealmContentNamespace.swift in Sources */,
 				0039A7612B69551400AC7150 /* RealmRSSFeedImage.swift in Sources */,
-				001DA4242B63CAE700C16EA0 /* HomeViewController.swift in Sources */,
+				001DA4242B63CAE700C16EA0 /* FeedViewController.swift in Sources */,
 				0039A7812B6A576800AC7150 /* RealmServiceProtocol.swift in Sources */,
 				001DA41E2B63CAB900C16EA0 /* UITableViewExtension.swift in Sources */,
 				0039A76B2B6963CB00AC7150 /* RealmRSSFeedItemGUID.swift in Sources */,
+				0039A7B62B6CCD1A00AC7150 /* MainHomepageViewController.swift in Sources */,
 				0039A7652B6962B100AC7150 /* RealmRSSFeedItem.swift in Sources */,
 				0039A7872B6A586A00AC7150 /* NetworkMonitorService.swift in Sources */,
 				0039A7792B69705600AC7150 /* RealmItunesCategory.swift in Sources */,
@@ -1071,6 +1099,14 @@
 				minimumVersion = 7.10.2;
 			};
 		};
+		0039A7A52B6CCA7E00AC7150 /* XCRemoteSwiftPackageReference "Parchment" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rechsteiner/Parchment";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1103,6 +1139,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 001DA4452B63CBE200C16EA0 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		0039A7A62B6CCA7E00AC7150 /* Parchment */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0039A7A52B6CCA7E00AC7150 /* XCRemoteSwiftPackageReference "Parchment" */;
+			productName = Parchment;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

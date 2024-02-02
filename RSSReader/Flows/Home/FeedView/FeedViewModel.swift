@@ -1,5 +1,5 @@
 //
-//  HomeViewModel.swift
+//  FeedViewModel.swift
 //  RSSReader
 //
 //  Created by Fabijan Mihanović on 31.01.2024..
@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class HomeViewModel: HasFeedService {
+class FeedViewModel: HasFeedService {
 
     struct Output {
         let reloadPublisher: AnyPublisher<Void, Never>
@@ -25,9 +25,14 @@ class HomeViewModel: HasFeedService {
     var feed: [RSSItemWithInfo] = []
     var subjects = Subjects()
 
-    init(feedService: FeedServiceProtocol) {
+    var publisherId: String?
+
+    init(feedService: FeedServiceProtocol, specifiedProviderId: String? = nil) {
         self.feedService = feedService
+        self.publisherId = specifiedProviderId
+
         observeFeedService()
+        loadStoredFeed()
     }
 
     func transform() -> Output {
@@ -35,26 +40,22 @@ class HomeViewModel: HasFeedService {
     }
 
     func observeFeedService() {
-        feedService.feedPublisherPublisher
-            .sink { [unowned self] homepageFeed in
-                self.feed = homepageFeed
+        feedService.refreshViewsPublisher
+            .subscribe(subjects.reload)
+            .store(in: &cancellables)
+    }
+
+    func loadStoredFeed() {
+        feedService.fetchFeed(withPublisherId: publisherId)
+            .sink { [unowned self] storageFeed in
+                self.feed = storageFeed
                 self.subjects.reload.send()
             }
             .store(in: &cancellables)
-
-        feedService.addNewFeed(with: "https://net.hr/feed")
-    }
-
-    func reload() {
-        feedService.fetchFeed()
-    }
-
-    func search(text: String) {
-        feedService.searchFor(text)
     }
 }
 
-extension HomeViewModel {
+extension FeedViewModel {
 
     func numberOfItems() -> Int {
         feed.count

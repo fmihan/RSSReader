@@ -137,7 +137,7 @@ class MediumArticleTableViewCell: UITableViewCell {
         }
 
         image.snp.makeConstraints { make in
-            make.height.equalTo(85)
+            make.height.equalTo(80)
             make.width.equalTo(100)
             make.trailing.equalToSuperview().inset(8)
             make.centerY.equalToSuperview()
