@@ -60,4 +60,12 @@ class UIViewControllerFactory {
         return viewController
     }
 
+    static func createFavoritesViewController(coordinator: MoreCoordinator) -> FavoritesViewController {
+        let viewController = FavoritesViewController()
+        let viewModel = FavoritesViewModel(feedService: dependencies.feedService)
+        viewModel.coordinator = coordinator
+        viewController.viewModel = viewModel
+        return viewController
+    }
+
 }

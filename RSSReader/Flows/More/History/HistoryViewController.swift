@@ -78,7 +78,7 @@ class HistoryViewController: UIViewController {
         var noHistory = UIContentUnavailableConfiguration.empty()
         noHistory.image = UIImage(systemName: "clock.arrow.circlepath")
         noHistory.text = "no.results.history.feed.empty".localize()
-        noHistory.secondaryText = "no.results.home.history.empty.description".localize()
+        noHistory.secondaryText = "no.results.history.feed.empty.description".localize()
         return noHistory
     }
 }

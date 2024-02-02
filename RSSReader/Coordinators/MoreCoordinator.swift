@@ -29,5 +29,10 @@ class MoreCoordinator: CoordinatorProtocol, CSafariViewProtocol, CFeedActionsPro
         let history = UIViewControllerFactory.createHistoryViewController(coordinator: self)
         navigationController.pushViewController(history, animated: true)
     }
+
+    func favorites() {
+        let history = UIViewControllerFactory.createFavoritesViewController(coordinator: self)
+        navigationController.pushViewController(history, animated: true)
+    }
 }
 

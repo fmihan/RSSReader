@@ -36,7 +36,7 @@ class MoreViewModel {
         case .history:
             coordinator?.history()
         case .favorites:
-            break
+            coordinator?.favorites()
         }
     }
 }

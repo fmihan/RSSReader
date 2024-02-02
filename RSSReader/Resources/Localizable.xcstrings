@@ -324,6 +324,23 @@
         }
       }
     },
+    "favorites.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorites"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favoriti"
+          }
+        }
+      }
+    },
     "history.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -524,6 +541,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ako pruženi URL ne sadržava valjane RSS podatke, aplikacija ih neće moći obraditi. Molimo vas da provjerite valjanost URL-a i pokušate ponovno."
+          }
+        }
+      }
+    },
+    "no.results.favorites.empty.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Once you add favorites they will show up here."
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Jednom kad dodate favorite pojavit će se na ovom ekranu."
+          }
+        }
+      }
+    },
+    "no.results.favorites.feed.empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Favorites"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nema Favorita"
+          }
+        }
+      }
+    },
+    "no.results.history.feed.empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No History"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nema Povijesti"
+          }
+        }
+      }
+    },
+    "no.results.history.feed.empty.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No article was read."
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nijedan članak nije pročitan."
           }
         }
       }

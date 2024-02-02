@@ -103,6 +103,10 @@ class AddRSSViewModel: HasRSSReaderApi, HasFeedService {
         subjects.sourceAdded.send()
     }
 
+    func openLink(link: String?) {
+        homeCoordinator?.pushToWebView(url: link)
+    }
+
     private func preapendHTTPSchemeIfNeeded(_ urlString: String?) -> String? {
         guard let urlString = urlString else { return nil }
 
