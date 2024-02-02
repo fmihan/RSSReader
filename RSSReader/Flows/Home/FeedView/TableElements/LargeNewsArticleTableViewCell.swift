@@ -12,6 +12,7 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
     let image = UIImageView().then {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
+        $0.backgroundColor = .systemGray3
     }
 
     let gradient = UIImageView().then {

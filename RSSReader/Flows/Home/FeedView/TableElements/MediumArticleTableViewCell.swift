@@ -13,6 +13,7 @@ class MediumArticleTableViewCell: UITableViewCell {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
         $0.layer.cornerRadius = 6
+        $0.backgroundColor = .systemGray3
     }
 
     let label = UILabel(
