@@ -52,6 +52,23 @@
         }
       }
     },
+    "croatian.prefix.before" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Before"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prije"
+          }
+        }
+      }
+    },
     "date.time.day.ago" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -405,6 +422,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Započnite sa dodavanjem novog RSS izvora."
+          }
+        }
+      }
+    },
+    "toast.new.feed.added" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Added source!"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dodan izvor!"
           }
         }
       }

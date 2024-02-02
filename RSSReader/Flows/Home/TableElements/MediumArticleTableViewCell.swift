@@ -12,7 +12,7 @@ class MediumArticleTableViewCell: UITableViewCell {
     let image = UIImageView().then {
         $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFill
-        $0.layer.cornerRadius = 12
+        $0.layer.cornerRadius = 6
     }
 
     let label = UILabel(

@@ -17,6 +17,13 @@ class MainHomepageViewController: UIViewController {
 
     // MARK:  UI Elements
     var pagingViewController: PagingViewController?
+    var addSource = UIButton().then {
+        $0.setShadow()
+        $0.tintColor = .white
+        $0.layer.cornerRadius = 25
+        $0.backgroundColor = .systemRed
+        $0.setImage(UIImage(systemName: "plus"), for: .normal)
+    }
 
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -40,7 +47,7 @@ class MainHomepageViewController: UIViewController {
         view.backgroundColor = .systemBackground
 
         addParchment()
-        addLoader()
+        addButton()
     }
 
     func addParchment() {
@@ -65,6 +72,20 @@ class MainHomepageViewController: UIViewController {
         pagingViewController.view.snp.makeConstraints { make in
             make.verticalEdges.equalTo(view.safeAreaLayoutGuide.snp.verticalEdges)
             make.horizontalEdges.equalToSuperview()
+        }
+    }
+
+    func addButton() {
+        view.addSubview(addSource)
+
+        addSource.addAction(UIAction(handler: { [unowned self] _ in
+            viewModel.addFeed()
+        }), for: .touchUpInside)
+
+        addSource.snp.makeConstraints { make in
+            make.size.equalTo(50)
+            make.trailing.equalToSuperview().inset(16)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-16)
         }
     }
 

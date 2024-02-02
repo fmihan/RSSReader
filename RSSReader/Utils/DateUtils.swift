@@ -80,13 +80,13 @@ class DateUtils {
 
         if minuteAgo < date {
             let diff = Calendar.current.dateComponents([.second], from: date, to: Date()).second ?? 0
-            return "\(diff)\("date.time.s.ago".localize())"
+            return "\(diff) \("date.time.s.ago".localize())"
         } else if hourAgo < date {
             let diff = Calendar.current.dateComponents([.minute], from: date, to: Date()).minute ?? 0
-            return "\(diff)\("date.time.m.ago".localize())"
+            return "\(diff) \("date.time.m.ago".localize())"
         } else if dayAgo < date {
             let diff = Calendar.current.dateComponents([.hour], from: date, to: Date()).hour ?? 0
-            return "\(diff)\("date.time.h.ago".localize())"
+            return "\(diff) \("date.time.h.ago".localize())"
         } else if weekAgo < date {
             let diff = Calendar.current.dateComponents([.day], from: date, to: Date()).day ?? 0
             return diff == 1 ? "\(diff) \("date.time.day.ago".localize())" : "\(diff) \("date.time.days.ago".localize())"

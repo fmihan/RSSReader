@@ -73,7 +73,14 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
 
             //image.setKFImage(from: article.item?.imageUrl, placeholder: nil)
             label.text = article.item?.title
-            source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "Kurcina" )
+
+            if let preferredLanguage = Locale.preferredLanguages.first,
+               preferredLanguage.lowercased().hasPrefix("hr") {
+                source.text = (article.publisher?.title ?? "") + " • " + "\("croatian.prefix.before".localize()) " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "" )
+            } else {
+                source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "" )
+            }
+
 
             if let publisherImage = article.publisher?.image?.url {
                 sourceImage.setKFImage(from: publisherImage, placeholder: .none)
@@ -137,7 +144,7 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         }
 
         sourceImage.snp.makeConstraints { make in
-            make.height.equalTo(20)
+            make.size.equalTo(20)
             make.top.equalTo(image.snp.top).offset(16)
             make.leading.equalTo(image.snp.leading).offset(8)
             make.trailing.lessThanOrEqualToSuperview()

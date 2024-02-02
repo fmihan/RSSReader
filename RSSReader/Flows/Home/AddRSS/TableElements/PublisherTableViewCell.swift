@@ -45,8 +45,7 @@ class PublisherTableViewCell: UITableViewCell {
     
     private func commonInit() {
         selectionStyle = .none
-        backgroundColor = .systemRed.withAlphaComponent(0.4)
-
+        backgroundColor = .systemGray5
         contentView.addSubview(title)
         contentView.addSubview(publisherDescription)
 

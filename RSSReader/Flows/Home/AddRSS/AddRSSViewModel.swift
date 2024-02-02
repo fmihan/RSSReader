@@ -18,11 +18,13 @@ class AddRSSViewModel: HasRSSReaderApi, HasFeedService {
     struct Subjects {
         let reload = PassthroughSubject<Void, Never>()
         let noRSSFeed = PassthroughSubject<Bool, Never>()
+        let sourceAdded = PassthroughSubject<Void, Never>()
     }
 
     struct Output {
         let reloadPublisher: AnyPublisher<Void, Never>
         let noRSSFeedPublisher: AnyPublisher<Bool, Never>
+        let sourceAdded: AnyPublisher<Void, Never>
     }
 
     weak var homeCoordinator: HomeCoordinator?
@@ -48,7 +50,8 @@ class AddRSSViewModel: HasRSSReaderApi, HasFeedService {
 
         return Output(
             reloadPublisher: subjects.reload.eraseToAnyPublisher(),
-            noRSSFeedPublisher: subjects.noRSSFeed.eraseToAnyPublisher()
+            noRSSFeedPublisher: subjects.noRSSFeed.eraseToAnyPublisher(),
+            sourceAdded: subjects.sourceAdded.eraseToAnyPublisher()
         )
     }
 
@@ -97,6 +100,7 @@ class AddRSSViewModel: HasRSSReaderApi, HasFeedService {
     func add() {
         guard let lookedUrl else { return }
         feedService.addNewFeed(with: lookedUrl)
+        subjects.sourceAdded.send()
     }
 
     private func preapendHTTPSchemeIfNeeded(_ urlString: String?) -> String? {

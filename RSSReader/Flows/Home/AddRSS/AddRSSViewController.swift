@@ -27,6 +27,7 @@ class AddRSSViewController: UIViewController {
         $0.configuration = .borderedProminent()
         $0.setTitle("add.rss.button.title".localize(), for: .normal)
         $0.addAction(UIAction(handler: { [unowned self] _ in
+            Haptics.shared.play(.rigid)
             viewModel.add()
         }), for: .touchUpInside)
     }
@@ -35,7 +36,6 @@ class AddRSSViewController: UIViewController {
         super.viewDidLoad()
         title = "add.rss.source.title".localize()
         setupUI()
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -111,6 +111,13 @@ class AddRSSViewController: UIViewController {
                 animateButton(isHidden: noFeed)
                 contentUnavailableConfiguration = noFeed ? validateRSSFormat() : nil
                 setNeedsUpdateContentUnavailableConfiguration()
+            }
+            .store(in: &cancellables)
+
+        output.sourceAdded
+            .sink { [unowned self] in
+                animateButton(isHidden: true)
+                Toast.show(for: .addedNewFeed, controller: self)
             }
             .store(in: &cancellables)
     }
