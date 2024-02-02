@@ -11,6 +11,8 @@ import SafariServices
 protocol CSafariViewProtocol {
     var navigationController: NavigationViewController { get }
     var dependencies: AppDependency { get }
+
+    func openItem(_ item: RealmRSSFeedItem)
     func pushToWebView(url: String?)
 }
 
@@ -20,12 +22,13 @@ extension CSafariViewProtocol {
         if dependencies.networkMonitorService.isConnected {
             pushToWebView(url: item.link)
         } else {
-            openOfflineReader()
+            openOfflineReader(item: item)
         }
     }
 
-    func openOfflineReader() {
-        
+    func openOfflineReader(item: RealmRSSFeedItem) {
+        let vc = UIViewControllerFactory.createOfflinePreviewViewController(with: item)
+        navigationController.pushViewController(vc, animated: true)
     }
 
     func pushToWebView(url: String?) {

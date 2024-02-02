@@ -84,7 +84,7 @@ class FeedViewModel: HasFeedService {
     func openWeb(for item: RealmRSSFeedItem?) {
         guard let item else { return }
         feedService.markItemAsRead(item)
-        coordinator?.pushToWebView(url: item.link)
+        coordinator?.openItem(item)
     }
 }
 

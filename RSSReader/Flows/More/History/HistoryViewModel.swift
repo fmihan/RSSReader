@@ -87,7 +87,7 @@ class HistoryViewModel: HasFeedService {
 
     func openWeb(for item: RealmRSSFeedItem?) {
         guard let item else { return }
-        coordinator?.pushToWebView(url: item.link)
+        coordinator?.openItem(item)
     }
 }
 

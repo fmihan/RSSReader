@@ -68,4 +68,10 @@ class UIViewControllerFactory {
         return viewController
     }
 
+    static func createOfflinePreviewViewController(with item: RealmRSSFeedItem) -> OfflinePreviewViewController {
+        let viewController = OfflinePreviewViewController()
+        viewController.item = item
+        return viewController
+    }
+
 }
