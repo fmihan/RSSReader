@@ -52,4 +52,12 @@ class UIViewControllerFactory {
         return viewController
     }
 
+    static func createHistoryViewController(coordinator: MoreCoordinator) -> HistoryViewController {
+        let viewController = HistoryViewController()
+        let viewModel = HistoryViewModel(feedService: dependencies.feedService)
+        viewModel.coordinator = coordinator
+        viewController.viewModel = viewModel
+        return viewController
+    }
+
 }

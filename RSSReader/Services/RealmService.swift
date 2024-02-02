@@ -166,7 +166,7 @@ class RealmService: RealmServiceProtocol {
     // MARK: - UI Representable Data
 
     func getReadItems() -> [RSSItemWithInfo] {
-        return mapToRSSItemWithInfo(feedItems: loadFeed(), publishers: getPublishers())
+        return mapToRSSItemWithInfo(feedItems: loadFeed()?.filter("readDate != null"), publishers: getPublishers())
     }
 
     func getBookmarkedItems() -> [RSSItemWithInfo] {

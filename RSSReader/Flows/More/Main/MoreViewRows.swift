@@ -10,7 +10,6 @@ import UIKit
 enum MoreViewRows: CaseIterable {
     case history
     case favorites
-    case deleteAll
 
     var icon: UIImage? {
         switch self {
@@ -18,8 +17,6 @@ enum MoreViewRows: CaseIterable {
             return UIImage(systemName: "clock.arrow.circlepath")
         case .favorites:
             return UIImage(systemName: "bookmark.fill")
-        case .deleteAll:
-            return UIImage(systemName: "trash.slash.fill")
         }
     }
 
@@ -29,8 +26,6 @@ enum MoreViewRows: CaseIterable {
             return .gray
         case .favorites:
             return .systemBlue
-        case .deleteAll:
-            return .systemRed
         }
     }
 
@@ -40,8 +35,6 @@ enum MoreViewRows: CaseIterable {
             return "more.actions.history".localize()
         case .favorites:
             return "more.actions.favorites".localize()
-        case .deleteAll:
-            return "more.actions.deleteAll".localize()
         }
     }
 }

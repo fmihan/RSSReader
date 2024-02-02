@@ -324,6 +324,23 @@
         }
       }
     },
+    "history.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "History"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Povijest"
+          }
+        }
+      }
+    },
     "home.mixed.feed" : {
       "extractionState" : "manual",
       "localizations" : {

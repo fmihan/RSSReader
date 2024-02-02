@@ -102,6 +102,24 @@ class FeedService: FeedServiceProtocol {
         .eraseToAnyPublisher()
     }
 
+    func loadHistory() -> AnyPublisher<[RSSItemWithInfo], Never> {
+        return Future<[RSSItemWithInfo], Never> { [unowned self] promise in
+            let data = realm.getReadItems()
+            let arrayFromResults = Array(data)
+            promise(.success(arrayFromResults))
+        }
+        .eraseToAnyPublisher()
+    }
+
+    func loadBookmarks() -> AnyPublisher<[RSSItemWithInfo], Never> {
+        return Future<[RSSItemWithInfo], Never> { [unowned self] promise in
+            let data = realm.getBookmarkedItems()
+            let arrayFromResults = Array(data)
+            promise(.success(arrayFromResults))
+        }
+        .eraseToAnyPublisher()
+    }
+
     // MARK: - RSS Actions
 
     func bookmarkItem(_ item: RealmRSSFeedItem) {

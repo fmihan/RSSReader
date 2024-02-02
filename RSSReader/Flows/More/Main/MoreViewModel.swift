@@ -34,10 +34,8 @@ class MoreViewModel {
     func action(_ action: MoreViewRows) {
         switch action {
         case .history:
-            break
+            coordinator?.history()
         case .favorites:
-            break
-        case .deleteAll:
             break
         }
     }

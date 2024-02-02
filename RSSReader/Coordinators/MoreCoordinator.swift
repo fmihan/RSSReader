@@ -24,5 +24,10 @@ class MoreCoordinator: CoordinatorProtocol, CSafariViewProtocol, CFeedActionsPro
         let home = UIViewControllerFactory.createMoreViewController(coordinator: self)
         navigationController.setViewControllers([home], animated: false)
     }
+
+    func history() {
+        let history = UIViewControllerFactory.createHistoryViewController(coordinator: self)
+        navigationController.pushViewController(history, animated: true)
+    }
 }
 

@@ -1,5 +1,5 @@
 //
-//  SearchViewController.swift
+//  HistoryViewController.swift
 //  RSSReader
 //
 //  Created by Fabijan Mihanović on 02.02.2024..
@@ -8,35 +8,24 @@
 import UIKit
 import Combine
 
-class SearchViewController: UIViewController {
+class HistoryViewController: UIViewController {
 
-    var viewModel: SearchViewModel!
+    var viewModel: HistoryViewModel!
     var cancellables = Set<AnyCancellable>()
 
     var tableView: UITableView?
-    let search = UISearchController(searchResultsController: nil).then {
-        $0.searchBar.searchTextField.placeholder = "search.searchBar.placeholder".localize()
-        $0.obscuresBackgroundDuringPresentation = false
-        $0.hidesNavigationBarDuringPresentation = false
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "search.title".localize()
+        title = "history.title".localize()
 
         setupUI()
         bindViewModel()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        search.searchBar.becomeFirstResponder()
-    }
-
     func setupUI() {
         view.backgroundColor = .systemGray2
         addTableView()
-        addSearch()
     }
 
     func addTableView() {
@@ -54,12 +43,6 @@ class SearchViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-
-    func addSearch() {
-        search.searchBar.delegate = self
-        navigationItem.searchController = search
-        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     func registrCollectionViewNibs() {
@@ -82,10 +65,25 @@ class SearchViewController: UIViewController {
                 tableView?.reloadRows(at: [indexPath], with: .automatic)
             }
             .store(in: &cancellables)
+
+        output.noItemsPublisher
+            .sink { [unowned self] noItems in
+                contentUnavailableConfiguration = noItems ? noHistory() : nil
+                setNeedsUpdateContentUnavailableConfiguration()
+            }
+            .store(in: &cancellables)
+    }
+
+    private func noHistory() -> UIContentConfiguration {
+        var noHistory = UIContentUnavailableConfiguration.empty()
+        noHistory.image = UIImage(systemName: "clock.arrow.circlepath")
+        noHistory.text = "no.results.history.feed.empty".localize()
+        noHistory.secondaryText = "no.results.home.history.empty.description".localize()
+        return noHistory
     }
 }
 
-extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
+extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfItems()
@@ -137,15 +135,4 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         viewModel.openWeb(for: item.item)
     }
 
-}
-
-extension SearchViewController: UISearchBarDelegate {
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        viewModel.searchForFeed(with: "")
-    }
-
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchForFeed(with: searchText)
-    }
 }
