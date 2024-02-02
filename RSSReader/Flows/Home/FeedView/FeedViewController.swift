@@ -72,21 +72,25 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 1 {
-            let cell: MediumArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-            cell.article = viewModel.itemAt(row: indexPath.row)
-            return cell
-        }
 
-        if indexPath.row == 3 {
+        let item = viewModel.itemAt(row: indexPath.row)
+
+        switch item.item?.size {
+        case .small:
             let cell: SmallArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.article = viewModel.itemAt(row: indexPath.row)
             return cell
+        case .medium:
+            let cell: MediumArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.article = viewModel.itemAt(row: indexPath.row)
+            return cell
+        case .large:
+            let cell: LargeNewsArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+            cell.article = viewModel.itemAt(row: indexPath.row)
+            return cell
+        case nil:
+            return UITableViewCell()
         }
-
-        let cell: LargeNewsArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
-        cell.article = viewModel.itemAt(row: indexPath.row)
-        return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

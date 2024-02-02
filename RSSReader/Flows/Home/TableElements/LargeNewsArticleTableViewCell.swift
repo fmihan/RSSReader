@@ -66,34 +66,19 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         didSet {
             guard let article else { return }
 
-            image.image = nil
+            label.text = article.item?.title
+            source.text = article.getPublisherAndTime()
+
             if let imageUrl = article.item?.imageUrl {
                 image.setKFImage(from: imageUrl, placeholder: nil)
             }
 
-            //image.setKFImage(from: article.item?.imageUrl, placeholder: nil)
-            label.text = article.item?.title
-
-            if let preferredLanguage = Locale.preferredLanguages.first,
-               preferredLanguage.lowercased().hasPrefix("hr") {
-                source.text = (article.publisher?.title ?? "") + " • " + "\("croatian.prefix.before".localize()) " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "" )
-            } else {
-                source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "" )
-            }
-
-
             if let publisherImage = article.publisher?.image?.url {
                 sourceImage.setKFImage(from: publisherImage, placeholder: .none)
-            } else {
-                sourceImage.image = nil
             }
 
-            if let articleCategory = article.item?.categories.first {
-                category.text = articleCategory.value
-                categoryContainer.isHidden = false
-            } else {
-                categoryContainer.isHidden = true
-            }
+            category.text = article.item?.firstCategoryName
+            categoryContainer.isHidden = article.item?.hasCategories == false
         }
     }
 
@@ -101,7 +86,14 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
     }
-    
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        image.image = nil
+        sourceImage.image = nil
+        categoryContainer.isHidden = true
+    }
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

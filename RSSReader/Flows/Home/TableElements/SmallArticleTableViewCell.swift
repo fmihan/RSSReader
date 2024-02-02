@@ -61,23 +61,16 @@ class SmallArticleTableViewCell: UITableViewCell {
         didSet {
             guard let article else { return }
 
-            //image.setKFImage(from: article.item?.imageUrl, placeholder: nil)
             label.text = article.item?.title
-            source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "" )
+            source.text = article.getPublisherAndTime()
+            sourceImage.isHidden = article.publisher?.image?.url == nil
 
             if let publisherImage = article.publisher?.image?.url {
                 sourceImage.setKFImage(from: publisherImage, placeholder: .none)
-                sourceImage.isHidden = false
-            } else {
-                sourceImage.isHidden = true
             }
 
-            if let articleCategory = article.item?.categories.first {
-                category.text = articleCategory.value
-                categoryContainer.isHidden = false
-            } else {
-                categoryContainer.isHidden = true
-            }
+            category.text = article.item?.firstCategoryName
+            categoryContainer.isHidden = article.item?.hasCategories == false
         }
     }
 
@@ -98,6 +91,12 @@ class SmallArticleTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         commonInit()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        sourceImage.image = nil
+        categoryContainer.isHidden = true
     }
 
     required init?(coder: NSCoder) {
@@ -134,7 +133,7 @@ class SmallArticleTableViewCell: UITableViewCell {
         }
 
         label.snp.makeConstraints { make in
-            make.top.equalTo(categoryContainer.snp.bottom).offset(8)
+            make.top.equalTo(categoryContainer.snp.bottom).offset(12)
             make.horizontalEdges.equalToSuperview().inset(8)
         }
 

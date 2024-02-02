@@ -66,28 +66,21 @@ class MediumArticleTableViewCell: UITableViewCell {
         didSet {
             guard let article else { return }
 
-            image.image = nil
+           
+            label.text = article.item?.title
+            source.text = article.getPublisherAndTime()
+            sourceImage.isHidden = article.publisher?.image?.url == nil
+
             if let imageUrl = article.item?.imageUrl {
                 image.setKFImage(from: imageUrl, placeholder: nil)
             }
 
-            //image.setKFImage(from: article.item?.imageUrl, placeholder: nil)
-            label.text = article.item?.title
-            source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "Kurcina" )
-
             if let publisherImage = article.publisher?.image?.url {
                 sourceImage.setKFImage(from: publisherImage, placeholder: .none)
-                sourceImage.isHidden = false
-            } else {
-                sourceImage.isHidden = true
             }
 
-            if let articleCategory = article.item?.categories.first {
-                category.text = articleCategory.value
-                categoryContainer.isHidden = false
-            } else {
-                categoryContainer.isHidden = true
-            }
+            category.text = article.item?.firstCategoryName
+            categoryContainer.isHidden = article.item?.hasCategories == false
         }
     }
 
@@ -98,6 +91,13 @@ class MediumArticleTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        image.image = nil
+        sourceImage.image = nil
+        categoryContainer.isHidden = true
     }
 
     private func commonInit() {
@@ -131,7 +131,7 @@ class MediumArticleTableViewCell: UITableViewCell {
         }
 
         label.snp.makeConstraints { make in
-            make.top.equalTo(categoryContainer.snp.bottom).offset(8)
+            make.top.equalTo(categoryContainer.snp.bottom).offset(12)
             make.leading.equalToSuperview().offset(8)
             make.trailing.equalTo(image.snp.leading).inset(-8)
         }

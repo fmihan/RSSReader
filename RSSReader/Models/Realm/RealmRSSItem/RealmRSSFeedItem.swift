@@ -9,60 +9,7 @@ import FeedKit
 import Foundation
 import RealmSwift
 
-protocol Imaginable {
-    var feedItemDescription: String? { get }
-    var content: RealmContentNamespace? { get }
-    var enclosure: RealmRSSFeedItemEnclosure? { get }
-}
-
-extension Imaginable {
-    var imageUrl: String? {
-
-        if let enclosureUrl = enclosure?.url {
-            return enclosureUrl
-        }
-
-        if let contentUrl = content?.contentEncoded {
-            return contentUrl.extractSource()
-        }
-
-        if let feedItemDescription {
-            return feedItemDescription.extractSource()
-        }
-
-        return nil
-    }
-}
-
-extension String {
-
-    func extractSource() -> String? {
-        let htmlString = self
-
-        do {
-            let pattern = #"src=\"([^"]+)\""#
-            let regex = try NSRegularExpression(pattern: pattern, options: [])
-            let range = NSRange(htmlString.startIndex..<htmlString.endIndex, in: htmlString)
-
-            if let match = regex.firstMatch(in: htmlString, options: [], range: range) {
-                let srcRange = Range(match.range(at: 1), in: htmlString)!
-                let src = String(htmlString[srcRange])
-                return src
-            } else {
-                return nil
-            }
-        } catch {
-            print("Error extracting URL: \(error)")
-            return nil
-        }
-
-    }
-
-}
-
-
-
-class RealmRSSFeedItem: Object, Imaginable {
+class RealmRSSFeedItem: Object, Imaginable, SizingCellProtocol, Timeable, Categorizable {
 
     @Persisted(primaryKey: true) var id: String = UUID().uuidString
 

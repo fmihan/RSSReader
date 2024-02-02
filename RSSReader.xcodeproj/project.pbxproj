@@ -78,6 +78,10 @@
 		0039A7C12B6CF2CB00AC7150 /* MoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7C02B6CF2CB00AC7150 /* MoreCoordinator.swift */; };
 		0039A7C62B6D027C00AC7150 /* PublisherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7C52B6D027C00AC7150 /* PublisherTableViewCell.swift */; };
 		0039A7C92B6D129C00AC7150 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7C82B6D129C00AC7150 /* Toast.swift */; };
+		0039A7CC2B6D1EC900AC7150 /* ImaginableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7CB2B6D1EC900AC7150 /* ImaginableProtocol.swift */; };
+		0039A7CE2B6D1EDF00AC7150 /* TimeableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7CD2B6D1EDF00AC7150 /* TimeableProtocol.swift */; };
+		0039A7D02B6D1EF400AC7150 /* CellSizingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7CF2B6D1EF400AC7150 /* CellSizingProtocol.swift */; };
+		0039A7D22B6D1FAD00AC7150 /* CategorizableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0039A7D12B6D1FAD00AC7150 /* CategorizableProtocol.swift */; };
 		005E0D9E2B64F3CE0006D2FD /* RSSItemWithInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E0D9D2B64F3CE0006D2FD /* RSSItemWithInfo.swift */; };
 		005E0DA12B6534DC0006D2FD /* LargeNewsArticleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E0DA02B6534DC0006D2FD /* LargeNewsArticleTableViewCell.swift */; };
 		005E0DA32B653DFF0006D2FD /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E0DA22B653DFE0006D2FD /* UIImageExtension.swift */; };
@@ -170,6 +174,10 @@
 		0039A7C02B6CF2CB00AC7150 /* MoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCoordinator.swift; sourceTree = "<group>"; };
 		0039A7C52B6D027C00AC7150 /* PublisherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherTableViewCell.swift; sourceTree = "<group>"; };
 		0039A7C82B6D129C00AC7150 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		0039A7CB2B6D1EC900AC7150 /* ImaginableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImaginableProtocol.swift; sourceTree = "<group>"; };
+		0039A7CD2B6D1EDF00AC7150 /* TimeableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeableProtocol.swift; sourceTree = "<group>"; };
+		0039A7CF2B6D1EF400AC7150 /* CellSizingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSizingProtocol.swift; sourceTree = "<group>"; };
+		0039A7D12B6D1FAD00AC7150 /* CategorizableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorizableProtocol.swift; sourceTree = "<group>"; };
 		005E0D9D2B64F3CE0006D2FD /* RSSItemWithInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSItemWithInfo.swift; sourceTree = "<group>"; };
 		005E0DA02B6534DC0006D2FD /* LargeNewsArticleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeNewsArticleTableViewCell.swift; sourceTree = "<group>"; };
 		005E0DA22B653DFE0006D2FD /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
@@ -324,6 +332,7 @@
 		001DA40A2B63C9F200C16EA0 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				0039A7CA2B6D1EBF00AC7150 /* Models */,
 				0039A77D2B6A573600AC7150 /* Services */,
 				001DA4162B63CA5E00C16EA0 /* Coordinators */,
 				001DA4152B63CA5B00C16EA0 /* UIKit */,
@@ -540,6 +549,17 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		0039A7CA2B6D1EBF00AC7150 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0039A7CB2B6D1EC900AC7150 /* ImaginableProtocol.swift */,
+				0039A7CD2B6D1EDF00AC7150 /* TimeableProtocol.swift */,
+				0039A7CF2B6D1EF400AC7150 /* CellSizingProtocol.swift */,
+				0039A7D12B6D1FAD00AC7150 /* CategorizableProtocol.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		005E0D9C2B64F3BB0006D2FD /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -716,6 +736,7 @@
 				0039A79E2B6CC38900AC7150 /* TabBarCoordinator.swift in Sources */,
 				001DA4202B63CAC600C16EA0 /* UIImageViewExtension.swift in Sources */,
 				0039A77C2B6A56E500AC7150 /* AppDependency.swift in Sources */,
+				0039A7D02B6D1EF400AC7150 /* CellSizingProtocol.swift in Sources */,
 				0039A7592B6951B600AC7150 /* RealmRSSFeed.swift in Sources */,
 				001DA4342B63CB7F00C16EA0 /* FPrint.swift in Sources */,
 				0039A7C92B6D129C00AC7150 /* Toast.swift in Sources */,
@@ -732,6 +753,7 @@
 				0039A7922B6A6AD800AC7150 /* RSSReaderApi.swift in Sources */,
 				0039A7692B69636300AC7150 /* RealmRSSFeedItemEnclosure.swift in Sources */,
 				001DA41C2B63CAAB00C16EA0 /* UILabelExtension.swift in Sources */,
+				0039A7D22B6D1FAD00AC7150 /* CategorizableProtocol.swift in Sources */,
 				001DA4222B63CAD600C16EA0 /* UIViewControllerExtension.swift in Sources */,
 				0039A7962B6ACDE100AC7150 /* FeedViewModel.swift in Sources */,
 				0039A78A2B6A676700AC7150 /* UIViewControllerFactory.swift in Sources */,
@@ -745,6 +767,7 @@
 				0039A76B2B6963CB00AC7150 /* RealmRSSFeedItemGUID.swift in Sources */,
 				0039A7B62B6CCD1A00AC7150 /* MainHomepageViewController.swift in Sources */,
 				0039A7652B6962B100AC7150 /* RealmRSSFeedItem.swift in Sources */,
+				0039A7CE2B6D1EDF00AC7150 /* TimeableProtocol.swift in Sources */,
 				0039A7872B6A586A00AC7150 /* NetworkMonitorService.swift in Sources */,
 				0039A7792B69705600AC7150 /* RealmItunesCategory.swift in Sources */,
 				0039A7732B696F7800AC7150 /* RealmITunesNamespace.swift in Sources */,
@@ -765,6 +788,7 @@
 				001DA42C2B63CB3400C16EA0 /* NetworkingService.swift in Sources */,
 				001DA4282B63CB1400C16EA0 /* APIError.swift in Sources */,
 				0039A7C12B6CF2CB00AC7150 /* MoreCoordinator.swift in Sources */,
+				0039A7CC2B6D1EC900AC7150 /* ImaginableProtocol.swift in Sources */,
 				0039A7632B69623000AC7150 /* RealmRSSFeedTextImput.swift in Sources */,
 				0039A77F2B6A574600AC7150 /* NetworkMonitorServiceProtocol.swift in Sources */,
 				0039A7BB2B6CEBE900AC7150 /* AddRSSViewController.swift in Sources */,
