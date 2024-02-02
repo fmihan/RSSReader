@@ -45,10 +45,10 @@ class FeedService: FeedServiceProtocol {
         self.realm = realm
         self.api = api
 
-        loadPublisers()
+        loadPublishers()
     }
 
-    private func loadPublisers() {
+    func loadPublishers() {
         guard let storedPublishers = realm.getPublishers() else { return }
         let publishers = Array(storedPublishers)
         rssPublishers = publishers
@@ -74,7 +74,7 @@ class FeedService: FeedServiceProtocol {
                 case .finished:
                     fprint("Successfully fetched data for feed with url: \(url)", type: .apiResponse)
                 case .failure(let failure):
-                    fprint("Error occured while fetching RSS feed with url: \(url)", type: .apiCallError, isError: true)
+                    fprint("Error occured while fetching RSS feed with url: \(url). Error: \(failure)", type: .apiCallError, isError: true)
                 }
             }, receiveValue: { [unowned self] response in
                 dump(response.items?.first)

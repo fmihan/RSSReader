@@ -39,37 +39,25 @@ class TabBarCoordinator: CoordinatorProtocol {
     private func getTabController(_ page: TabBarPage) -> UINavigationController {
         let navController = NavigationViewController()
         navController.tabBarItem = UITabBarItem(title: page.title, image: page.icon, tag: page.pageOrder)
-        
-        let coordinator = HomeCoordinator(dependencies: dependencies, navigationController: navController)
-        coordinator.parentCoordinator = self
-        childCoordinators.append(coordinator)
-        coordinator.start()
 
-//        switch page {
-//        case .home:
-//            homeCoordinator = CoordinatorFactory.createHomeCoordinator(navigationController: navController, dependencies: dependencies)
-//            homeCoordinator.parentCoordinator = self
-//            childCoordinators.append(homeCoordinator)
-//            homeCoordinator.start()
-//        case .search:
-//            let coordinator = CoordinatorFactory.createSearchCoordinator(navigationController: navController, dependencies: dependencies)
-//            coordinator.parentCoordinator = self
-//            childCoordinators.append(coordinator)
-//            coordinator.start()
-//        case .files:
-//            let coordinator = CoordinatorFactory.createFilesCoordinator(navigationController: navController, dependencies: dependencies)
-//            coordinator.parentCoordinator = self
-//            childCoordinators.append(coordinator)
-//            coordinator.start()
-//        case .insights:
-//            let coordinator = CoordinatorFactory.createHomeCoordinator(navigationController: navController, dependencies: dependencies)
-//            coordinator.start()
-//        case .profile:
-//            let coordinator = CoordinatorFactory.createProfileCoordinator(navigationController: navController, dependencies: dependencies)
-//            coordinator.parentCoordinator = self
-//            childCoordinators.append(coordinator)
-//            coordinator.start()
-//        }
+        switch page {
+        case .home:
+            let coordinator = HomeCoordinator(dependencies: dependencies, navigationController: navController)
+            coordinator.parentCoordinator = self
+            childCoordinators.append(coordinator)
+            coordinator.start()
+        case .search:
+            let coordinator = SearchCoordinator(dependencies: dependencies, navigationController: navController)
+            coordinator.parentCoordinator = self
+            childCoordinators.append(coordinator)
+            coordinator.start()
+        case .more:
+            let coordinator = MoreCoordinator(dependencies: dependencies, navigationController: navController)
+            coordinator.parentCoordinator = self
+            childCoordinators.append(coordinator)
+            coordinator.start()
+        }
+
         return navController
     }
 

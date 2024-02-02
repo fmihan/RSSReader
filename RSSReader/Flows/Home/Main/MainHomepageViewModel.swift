@@ -20,6 +20,8 @@ class MainHomepageViewModel: HasFeedService {
         let noResults = CurrentValueSubject<Bool, Never>(false)
     }
 
+    weak var homeCoordinator: HomeCoordinator?
+
     var subjects = Subjects()
     var publishers: [RealmRSSFeed] = []
     var feedService: FeedServiceProtocol
@@ -45,10 +47,16 @@ class MainHomepageViewModel: HasFeedService {
                 subjects.noResults.send(portals.isEmpty)
             }
             .store(in: &cancellables)
+
+        feedService.refreshViewsPublisher
+            .sink { [unowned self] in
+                feedService.loadPublishers()
+            }
+            .store(in: &cancellables)
     }
 
     func addFeed() {
-        
+        homeCoordinator?.addPublisher()
     }
 }
 

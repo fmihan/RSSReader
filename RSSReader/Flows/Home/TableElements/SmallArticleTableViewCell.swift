@@ -4,7 +4,9 @@
 //
 //  Created by Fabijan Mihanović on 01.02.2024..
 //
+
 import UIKit
+import FeedKit
 
 class SmallArticleTableViewCell: UITableViewCell {
 
@@ -61,7 +63,7 @@ class SmallArticleTableViewCell: UITableViewCell {
 
             //image.setKFImage(from: article.item?.imageUrl, placeholder: nil)
             label.text = article.item?.title
-            source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "Kurcina" )
+            source.text = (article.publisher?.title ?? "") + " • " + (DateUtils.timeAgo(from: article.item?.pubDate) ?? "" )
 
             if let publisherImage = article.publisher?.image?.url {
                 sourceImage.setKFImage(from: publisherImage, placeholder: .none)
@@ -76,6 +78,20 @@ class SmallArticleTableViewCell: UITableViewCell {
             } else {
                 categoryContainer.isHidden = true
             }
+        }
+    }
+
+    var rssItem: RSSFeedItem? {
+        didSet {
+            guard let rssItem else { return }
+
+            sourceImage.isHidden = true
+            bookmarkButton.isHidden = true
+            ellipsisButton.isHidden = true
+            categoryContainer.isHidden = true
+
+            label.text = rssItem.title
+            source.text = DateUtils.timeAgo(from: rssItem.pubDate) ?? ""
         }
     }
 

@@ -11,19 +11,28 @@ class UIViewControllerFactory {
 
     static var dependencies: AppDependency!
 
-    static func createHomeParchmentViewController() -> MainHomepageViewController {
+    static func createHomeParchmentViewController(coordinator: HomeCoordinator?) -> MainHomepageViewController {
         let viewController = MainHomepageViewController()
         let viewModel = MainHomepageViewModel(feedService: dependencies.feedService)
+        viewModel.homeCoordinator = coordinator
         viewController.viewModel = viewModel
-        
         return viewController
     }
 
-    static func createFeedViewController(withPublisherId id: String? = nil) -> FeedViewController {
+    static func createFeedViewController(coordinator: HomeCoordinator?, withPublisherId id: String? = nil) -> FeedViewController {
         let viewController = FeedViewController()
         let viewModel = FeedViewModel(feedService: dependencies.feedService, specifiedProviderId: id)
+        viewModel.coordinator = coordinator
         viewController.viewModel = viewModel
-        
+        return viewController
+    }
+
+    static func createAddRSSViewController(coordinator: HomeCoordinator?) -> AddRSSViewController {
+        let viewController = AddRSSViewController()
+        viewController.hidesBottomBarWhenPushed = true
+        let viewModel = AddRSSViewModel(api: dependencies.api, feedService: dependencies.feedService)
+        viewModel.homeCoordinator = coordinator
+        viewController.viewModel = viewModel
         return viewController
     }
 

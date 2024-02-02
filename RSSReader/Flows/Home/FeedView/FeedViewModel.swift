@@ -18,7 +18,7 @@ class FeedViewModel: HasFeedService {
         let reload = PassthroughSubject<Void, Never>()
     }
 
-    weak var coordinator: BaseCoordinator?
+    weak var coordinator: HomeCoordinator?
     var cancellables = Set<AnyCancellable>()
 
     var feedService: FeedServiceProtocol

@@ -32,7 +32,7 @@ class MainHomepageViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
     // MARK: UI
@@ -118,10 +118,10 @@ extension MainHomepageViewController: PagingViewControllerDataSource, PagingView
     func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
         if viewModel.hasMixedFeed() {
             let publisherId: String? = index == 0 ? nil : viewModel.getPublisherId(for: index)
-            let mixedFeedViewController = UIViewControllerFactory.createFeedViewController(withPublisherId: publisherId)
+            let mixedFeedViewController = UIViewControllerFactory.createFeedViewController(coordinator: viewModel.homeCoordinator, withPublisherId: publisherId)
             return mixedFeedViewController
         } else {
-            let mixedFeedViewController = UIViewControllerFactory.createFeedViewController()
+            let mixedFeedViewController = UIViewControllerFactory.createFeedViewController(coordinator: viewModel.homeCoordinator)
             return mixedFeedViewController
         }
     }

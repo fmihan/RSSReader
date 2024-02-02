@@ -1,14 +1,13 @@
 //
-//  HomeCoordinator.swift
+//  MoreCoordinator.swift
 //  RSSReader
 //
 //  Created by Fabijan Mihanović on 02.02.2024..
 //
 
-import Foundation
-import Combine
+import UIKit
 
-class HomeCoordinator: CoordinatorProtocol {
+class MoreCoordinator: CoordinatorProtocol {
 
     var dependencies: AppDependency
     var childCoordinators: [CoordinatorProtocol] = []
@@ -22,12 +21,8 @@ class HomeCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-        let home = UIViewControllerFactory.createHomeParchmentViewController(coordinator: self)
+        let home = UIViewController()
         navigationController.setViewControllers([home], animated: false)
     }
-
-    func addPublisher() {
-        let addRSS = UIViewControllerFactory.createAddRSSViewController(coordinator: self)
-        navigationController.pushViewController(addRSS, animated: true)
-    }
 }
+

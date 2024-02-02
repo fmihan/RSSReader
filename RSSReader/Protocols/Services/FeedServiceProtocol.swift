@@ -21,6 +21,7 @@ protocol FeedServiceProtocol {
     func addNewFeed(with url: String)
 
     // MARK: - Local queries
+    func loadPublishers()
     func searchFor(_ searchText: String) -> AnyPublisher<[RSSItemWithInfo], Never>
     func fetchFeed(withPublisherId id: String?) -> AnyPublisher<[RSSItemWithInfo], Never>
 

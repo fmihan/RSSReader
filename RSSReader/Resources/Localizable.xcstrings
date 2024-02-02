@@ -1,6 +1,57 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "add.rss.button.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add this source"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj izvor"
+          }
+        }
+      }
+    },
+    "add.rss.search.placeholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter URL"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unesi URL"
+          }
+        }
+      }
+    },
+    "add.rss.source.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add RSS Source"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dodaj RSS Izvor"
+          }
+        }
+      }
+    },
     "date.time.day.ago" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -269,6 +320,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Pretraga"
+          }
+        }
+      }
+    },
+    "no.results.add.rss.empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Link Issue"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Greška s poveznicom"
+          }
+        }
+      }
+    },
+    "no.results.add.rss.empty.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If the provided URL does not contain valid RSS data, the application will not be able to process it. Please ensure the URL is valid and try again."
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ako pruženi URL ne sadržava valjane RSS podatke, aplikacija ih neće moći obraditi. Molimo vas da provjerite valjanost URL-a i pokušate ponovno."
           }
         }
       }

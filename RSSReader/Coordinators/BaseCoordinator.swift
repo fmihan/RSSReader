@@ -21,6 +21,8 @@ class BaseCoordinator: CoordinatorProtocol {
 
     func start() {
         let tabCoordinator = TabBarCoordinator(navigationController: navigationController, dependencies: dependencies)
+        tabCoordinator.parentCoordinator = self
+        childCoordinators.append(tabCoordinator)
         tabCoordinator.start()
     }
     
