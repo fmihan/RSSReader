@@ -9,7 +9,7 @@ import Foundation
 
 class RSSItemWithInfo {
     let publisher: RealmRSSFeed?
-    let item: RealmRSSFeedItem?
+    var item: RealmRSSFeedItem?
 
     init(publisher: RealmRSSFeed?, item: RealmRSSFeedItem?) {
         self.publisher = publisher

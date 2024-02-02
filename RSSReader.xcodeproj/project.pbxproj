@@ -399,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				0039A7B92B6CEBE000AC7150 /* AddRSS */,
-				005E0D9F2B65349F0006D2FD /* TableElements */,
 				0039A7AF2B6CCAF700AC7150 /* Main */,
 				0039A7B12B6CCB0E00AC7150 /* FeedView */,
 			);
@@ -517,6 +516,7 @@
 		0039A7B12B6CCB0E00AC7150 /* FeedView */ = {
 			isa = PBXGroup;
 			children = (
+				005E0D9F2B65349F0006D2FD /* TableElements */,
 				001DA4232B63CAE700C16EA0 /* FeedViewController.swift */,
 				0039A7952B6ACDE100AC7150 /* FeedViewModel.swift */,
 			);

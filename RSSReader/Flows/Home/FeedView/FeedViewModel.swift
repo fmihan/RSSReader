@@ -12,10 +12,12 @@ class FeedViewModel: HasFeedService {
 
     struct Output {
         let reloadPublisher: AnyPublisher<Void, Never>
+        let reloadRowPublisher: AnyPublisher<IndexPath, Never>
     }
 
     struct Subjects {
         let reload = PassthroughSubject<Void, Never>()
+        let reloadRow = PassthroughSubject<IndexPath, Never>()
     }
 
     weak var coordinator: HomeCoordinator?
@@ -36,13 +38,28 @@ class FeedViewModel: HasFeedService {
     }
 
     func transform() -> Output {
-        Output(reloadPublisher: subjects.reload.eraseToAnyPublisher())
+        Output(
+            reloadPublisher: subjects.reload.eraseToAnyPublisher(),
+            reloadRowPublisher: subjects.reloadRow.eraseToAnyPublisher()
+        )
     }
 
     func observeFeedService() {
         feedService.refreshViewsPublisher
             .subscribe(subjects.reload)
             .store(in: &cancellables)
+
+        feedService.updatedItemPublisher
+            .sink { [unowned self] value in
+                manageUpdatedItem(value)
+            }
+            .store(in: &cancellables)
+    }
+
+    func manageUpdatedItem(_ item: RealmRSSFeedItem) {
+        guard let index = feed.firstIndex(where: { $0.item?.id == item.id }) else { return }
+        feed[index].item = item
+        subjects.reloadRow.send(IndexPath(row: index, section: 0))
     }
 
     func loadStoredFeed() {
@@ -52,6 +69,16 @@ class FeedViewModel: HasFeedService {
                 self.subjects.reload.send()
             }
             .store(in: &cancellables)
+    }
+
+    func actions(for item: RealmRSSFeedItem?) {
+        guard let item else { return }
+        coordinator?.showActions(for: item)
+    }
+
+    func bookmark(for item: RealmRSSFeedItem?) {
+        guard let item else { return }
+        feedService.bookmarkItem(item)
     }
 }
 

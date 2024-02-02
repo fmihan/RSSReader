@@ -1,37 +1,26 @@
 //
-//  LargeNewsArticleTableViewCell.swift
+//  SmallArticleTableViewCell.swift
 //  RSSReader
 //
-//  Created by Fabijan Mihanović on 27.01.2024..
+//  Created by Fabijan Mihanović on 01.02.2024..
 //
 
 import UIKit
+import FeedKit
 
-class LargeNewsArticleTableViewCell: UITableViewCell {
-
-    let image = UIImageView().then {
-        $0.clipsToBounds = true
-        $0.contentMode = .scaleAspectFill
-    }
-
-    let gradient = UIImageView().then {
-        $0.tintColor = .black
-        $0.clipsToBounds = true
-        $0.contentMode = .scaleAspectFill
-        $0.image = UIImage.gradientBlackClear
-    }
+class SmallArticleTableViewCell: UITableViewCell {
 
     let label = UILabel(
         text: "Text",
-        textColor: .white,
-        font: .systemFont(ofSize: 18, weight: .heavy)
+        textColor: .label,
+        font: .systemFont(ofSize: 17, weight: .bold)
     ).then {
-        $0.numberOfLines = 3
+        $0.numberOfLines = 0
     }
 
     let source = UILabel(
         text: "",
-        textColor: .white,
+        textColor: .label,
         font: .systemFont(ofSize: 10, weight: .regular)
     )
 
@@ -50,15 +39,21 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         font: .systemFont(ofSize: 10, weight: .medium)
     )
 
+    let hStack = UIStackView().then {
+        $0.spacing = 4
+        $0.axis = .horizontal
+        $0.distribution = .fillProportionally
+    }
+
     let ellipsisButton = UIButton().then {
         $0.setShadow()
-        $0.tintColor = .white
+        $0.tintColor = .label
         $0.setImage(UIImage(systemName: "ellipsis"), for: .normal)
     }
 
     let bookmarkButton = UIButton().then {
         $0.setShadow()
-        $0.tintColor = .white
+        $0.tintColor = .label
         $0.setImage(UIImage(systemName: "bookmark"), for: .normal)
     }
 
@@ -71,10 +66,7 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
 
             label.text = article.item?.title
             source.text = article.getPublisherAndTime()
-
-            if let imageUrl = article.item?.imageUrl {
-                image.setKFImage(from: imageUrl, placeholder: nil)
-            }
+            sourceImage.isHidden = article.publisher?.image?.url == nil
 
             if let publisherImage = article.publisher?.image?.url {
                 sourceImage.setKFImage(from: publisherImage, placeholder: .none)
@@ -82,6 +74,23 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
 
             category.text = article.item?.firstCategoryName
             categoryContainer.isHidden = article.item?.hasCategories == false
+            
+            let imageName: String = article.item?.isFavorite == true ? "bookmark.fill" : "bookmark"
+            bookmarkButton.setImage(UIImage(systemName: imageName), for: .normal)
+        }
+    }
+
+    var rssItem: RSSFeedItem? {
+        didSet {
+            guard let rssItem else { return }
+
+            sourceImage.isHidden = true
+            bookmarkButton.isHidden = true
+            ellipsisButton.isHidden = true
+            categoryContainer.isHidden = true
+
+            label.text = rssItem.title
+            source.text = DateUtils.timeAgo(from: rssItem.pubDate) ?? ""
         }
     }
 
@@ -92,7 +101,6 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        image.image = nil
         sourceImage.image = nil
         categoryContainer.isHidden = true
     }
@@ -100,51 +108,24 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func commonInit() {
-        contentView.addSubview(image)
-        contentView.addSubview(gradient)
         contentView.addSubview(label)
-        contentView.addSubview(source)
-        contentView.addSubview(sourceImage)
+        contentView.addSubview(hStack)
+        contentView.addSubview(ellipsisButton)
         contentView.addSubview(categoryContainer)
         contentView.addSubview(ellipsisButton)
         contentView.addSubview(bookmarkButton)
-        categoryContainer.addSubview(category)
 
+        hStack.addArrangedSubview(sourceImage)
+        hStack.addArrangedSubview(source)
+        categoryContainer.addSubview(category)
 
         setupConstraints()
         setupActions()
     }
 
     private func setupConstraints() {
-
-        image.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.height.equalTo(230).priority(999)
-        }
-
-        gradient.snp.makeConstraints { make in
-            make.edges.equalTo(image.snp.edges)
-        }
-
-        label.snp.makeConstraints { make in
-            make.bottom.equalTo(source.snp.top).inset(-8)
-            make.horizontalEdges.equalToSuperview().inset(8)
-        }
-
-        source.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(8)
-            make.trailing.equalToSuperview().inset(8)
-            make.bottom.equalTo(image.snp.bottom).inset(16)
-        }
-
-        sourceImage.snp.makeConstraints { make in
-            make.size.equalTo(20)
-            make.top.equalTo(image.snp.top).offset(16)
-            make.leading.equalTo(image.snp.leading).offset(8)
-            make.trailing.lessThanOrEqualToSuperview()
-        }
 
         category.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(2)
@@ -154,19 +135,35 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         }
 
         categoryContainer.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(8)
             make.leading.equalToSuperview().offset(8)
-            make.bottom.equalTo(label.snp.top).offset(-8)
+        }
+
+        label.snp.makeConstraints { make in
+            make.top.equalTo(categoryContainer.snp.bottom).offset(12)
+            make.horizontalEdges.equalToSuperview().inset(8)
+        }
+
+        hStack.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom).offset(8)
+            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().offset(-16)
+        }
+
+        sourceImage.snp.makeConstraints { make in
+            make.size.equalTo(16)
         }
 
         ellipsisButton.snp.makeConstraints { make in
             make.size.equalTo(40)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(-4)
             make.trailing.equalToSuperview()
         }
 
         bookmarkButton.snp.makeConstraints { make in
             make.size.equalTo(40)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(-4)
             make.trailing.equalTo(ellipsisButton.snp.leading).inset(8)
         }
     }
@@ -182,3 +179,4 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
     }
 
 }
+

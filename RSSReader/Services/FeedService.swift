@@ -20,14 +20,9 @@ class FeedService: FeedServiceProtocol {
         refreshViewsSubject.eraseToAnyPublisher()
     }
 
-    private var updatedItemSubject = PassthroughSubject<String, Never>()
-    var updatedItemPublisher: AnyPublisher<String, Never> {
+    private var updatedItemSubject = PassthroughSubject<RealmRSSFeedItem, Never>()
+    var updatedItemPublisher: AnyPublisher<RealmRSSFeedItem, Never> {
         updatedItemSubject.eraseToAnyPublisher()
-    }
-
-    private var removedFeedSubject = PassthroughSubject<String, Never>()
-    var removedFeedPublisher: AnyPublisher<String, Never> {
-        removedFeedSubject.eraseToAnyPublisher()
     }
 
     private var subscibedPortalsSubject = CurrentValueSubject<[RealmRSSFeed], Never>([])
@@ -56,7 +51,6 @@ class FeedService: FeedServiceProtocol {
     }
 
     // MARK: - Network Calls
-
     func refreshFeed() {
         isRefreshingSubject.send(true)
 
@@ -82,10 +76,6 @@ class FeedService: FeedServiceProtocol {
                 refreshViews()
             })
             .store(in: &cancellables)
-    }
-
-    func requestSummary(for providerIds: [String]) {
-        //
     }
 
     // MARK: - Local queries
@@ -114,19 +104,19 @@ class FeedService: FeedServiceProtocol {
 
     // MARK: - RSS Actions
 
-    func bookmarkItem(_ id: String) {
-        //
+    func bookmarkItem(_ item: RealmRSSFeedItem) {
+        realm.markAsBookmaked(item)
+        updatedItemSubject.send(item)
     }
 
-    func removeItem(with id: String) {
-        //
+    func markItemAsRead(_ item: RealmRSSFeedItem) {
+        realm.markAsRead(item)
+        updatedItemSubject.send(item)
     }
 
-    func markItemAsRead(_ id: String) {
-        //
-    }
-
-    func removeProvider(with id: String) {
-        //
+    func removeProvider(with id: String?) {
+        guard let id else { return }
+        realm.removePublisher(with: id)
+        refreshViewsSubject.send()
     }
 }

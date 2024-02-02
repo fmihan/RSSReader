@@ -83,6 +83,9 @@ class MediumArticleTableViewCell: UITableViewCell {
 
             category.text = article.item?.firstCategoryName
             categoryContainer.isHidden = article.item?.hasCategories == false
+
+            let imageName: String = article.item?.isFavorite == true ? "bookmark.fill" : "bookmark"
+            bookmarkButton.setImage(UIImage(systemName: imageName), for: .normal)
         }
     }
 

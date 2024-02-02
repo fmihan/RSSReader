@@ -12,8 +12,7 @@ protocol FeedServiceProtocol {
     // MARK: - Publihsers
     var refreshViewsPublisher: AnyPublisher<Void, Never> { get }
     var isRefreshingPublisher: AnyPublisher<Bool, Never> { get }
-    var updatedItemPublisher: AnyPublisher<String, Never> { get }
-    var removedFeedPublisher: AnyPublisher<String, Never> { get }
+    var updatedItemPublisher: AnyPublisher<RealmRSSFeedItem, Never> { get }
     var subscibedPortalsPublisher: AnyPublisher<[RealmRSSFeed], Never> { get }
 
     // MARK: - Network Calls
@@ -26,8 +25,7 @@ protocol FeedServiceProtocol {
     func fetchFeed(withPublisherId id: String?) -> AnyPublisher<[RSSItemWithInfo], Never>
 
     // MARK: - RSS Actions
-    func bookmarkItem(_ id: String)
-    func removeItem(with id: String)
-    func markItemAsRead(_ id: String)
-    func removeProvider(with id: String)
+    func removeProvider(with id: String?)
+    func bookmarkItem(_ item: RealmRSSFeedItem)
+    func markItemAsRead(_ item: RealmRSSFeedItem)
 }

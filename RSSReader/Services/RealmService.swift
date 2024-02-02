@@ -96,6 +96,12 @@ class RealmService: RealmServiceProtocol {
         } catch {
             fprint("Realm delete error = \(error)", type: .realm, isError: true)
         }
+
+        if let articles = loadFeed(forPublisher: id) {
+            articles.forEach { item in
+                removeFeed(item.id)
+            }
+        }
     }
 
     // MARK: - Feed Item Manager
@@ -123,13 +129,24 @@ class RealmService: RealmServiceProtocol {
         }
     }
 
-    func updateFeed(_ updatedItem: RealmRSSFeedItem) {
+    func markAsBookmaked(_ updatedItem: RealmRSSFeedItem) {
         guard let feedItem = realm?.object(ofType: RealmRSSFeedItem.self, forPrimaryKey: updatedItem.id) else { return }
-        fprint("Updating feed item", type: .realm)
+        fprint("Bookmarking feed item", type: .realm)
         do {
             try realm?.write {
-                feedItem.readDate = updatedItem.readDate
-                feedItem.isFavorite = updatedItem.isFavorite
+                feedItem.isFavorite = !updatedItem.isFavorite
+            }
+        } catch {
+            fprint("Realm write error = \(error)", type: .realm, isError: true)
+        }
+    }
+
+    func markAsRead(_ updatedItem: RealmRSSFeedItem) {
+        guard let feedItem = realm?.object(ofType: RealmRSSFeedItem.self, forPrimaryKey: updatedItem.id) else { return }
+        fprint("Bookmarking feed item", type: .realm)
+        do {
+            try realm?.write {
+                feedItem.readDate = Date()
             }
         } catch {
             fprint("Realm write error = \(error)", type: .realm, isError: true)

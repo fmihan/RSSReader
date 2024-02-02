@@ -62,6 +62,12 @@ class FeedViewController: UIViewController {
                 tableView?.reloadData()
             }
             .store(in: &cancellables)
+
+        output.reloadRowPublisher
+            .sink { [unowned self] indexPath in
+                tableView?.reloadRows(at: [indexPath], with: .automatic)
+            }
+            .store(in: &cancellables)
     }
 }
 
@@ -79,14 +85,32 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         case .small:
             let cell: SmallArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.article = viewModel.itemAt(row: indexPath.row)
+            cell.ellipsisAction = { [weak self] in
+                self?.viewModel.actions(for: item.item)
+            }
+            cell.bookmarkAction = { [weak self] in
+                self?.viewModel.bookmark(for: item.item)
+            }
             return cell
         case .medium:
             let cell: MediumArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.article = viewModel.itemAt(row: indexPath.row)
+            cell.ellipsisAction = { [weak self] in
+                self?.viewModel.actions(for: item.item)
+            }
+            cell.bookmarkAction = { [weak self] in
+                self?.viewModel.bookmark(for: item.item)
+            }
             return cell
         case .large:
             let cell: LargeNewsArticleTableViewCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
             cell.article = viewModel.itemAt(row: indexPath.row)
+            cell.ellipsisAction = { [weak self] in
+                self?.viewModel.actions(for: item.item)
+            }
+            cell.bookmarkAction = { [weak self] in
+                self?.viewModel.bookmark(for: item.item)
+            }
             return cell
         case nil:
             return UITableViewCell()

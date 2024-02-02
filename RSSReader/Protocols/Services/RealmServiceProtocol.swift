@@ -23,7 +23,8 @@ protocol RealmServiceProtocol {
     // MARK: - Feed Item Manager
     func removeFeed(_ id: String)
     func saveFeed(_ item: RealmRSSFeedItem)
-    func updateFeed(_ updatedItem: RealmRSSFeedItem)
+    func markAsRead(_ updatedItem: RealmRSSFeedItem)
+    func markAsBookmaked(_ updatedItem: RealmRSSFeedItem)
     func loadFeed(forPublisher id: String?) -> Results<RealmRSSFeedItem>?
 
     // MARK: - UI Representable Data
