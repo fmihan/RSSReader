@@ -44,4 +44,12 @@ class UIViewControllerFactory {
         return viewController
     }
 
+    static func createMoreViewController(coordinator: MoreCoordinator) -> MoreViewController {
+        let viewController = MoreViewController()
+        let viewModel = MoreViewModel()
+        viewModel.coordinator = coordinator
+        viewController.viewModel = viewModel
+        return viewController
+    }
+
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MoreCoordinator: CoordinatorProtocol {
+class MoreCoordinator: CoordinatorProtocol, CSafariViewProtocol, CFeedActionsProtocol {
 
     var dependencies: AppDependency
     var childCoordinators: [CoordinatorProtocol] = []
@@ -21,7 +21,7 @@ class MoreCoordinator: CoordinatorProtocol {
     }
 
     func start() {
-        let home = UIViewController()
+        let home = UIViewControllerFactory.createMoreViewController(coordinator: self)
         navigationController.setViewControllers([home], animated: false)
     }
 }

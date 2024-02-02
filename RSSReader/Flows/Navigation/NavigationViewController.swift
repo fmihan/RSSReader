@@ -12,6 +12,7 @@ class NavigationViewController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UINavigationBar.appearance().tintColor = .systemRed
+        UINavigationBar.appearance().prefersLargeTitles = true
     }
 
 }
