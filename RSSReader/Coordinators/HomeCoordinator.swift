@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SafariServices
 
 class HomeCoordinator: CoordinatorProtocol {
 
@@ -29,6 +30,15 @@ class HomeCoordinator: CoordinatorProtocol {
     func addPublisher() {
         let addRSS = UIViewControllerFactory.createAddRSSViewController(coordinator: self)
         navigationController.pushViewController(addRSS, animated: true)
+    }
+
+    func pushToWebView(url: String?) {
+        guard let stringUrl = url?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed), let url = URL(string: stringUrl), UIApplication.shared.canOpenURL(url) else { return }
+        let config = SFSafariViewController.Configuration()
+        config.entersReaderIfAvailable = true
+        let vc = SFSafariViewController(url: url, configuration: config)
+        vc.title = nil
+        navigationController.present(vc, animated: true)
     }
 
     func showActions(for item: RealmRSSFeedItem) {

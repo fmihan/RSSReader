@@ -1,31 +1,43 @@
 //
-//  FeedViewController.swift
+//  SearchViewController.swift
 //  RSSReader
 //
-//  Created by Fabijan Mihanović on 26.01.2024..
+//  Created by Fabijan Mihanović on 02.02.2024..
 //
 
 import UIKit
 import Combine
 
-class FeedViewController: UIViewController {
+class SearchViewController: UIViewController {
 
-    var viewModel: FeedViewModel!
-
-    var tableView: UITableView?
+    var viewModel: SearchViewModel!
+    var data: [RSSItemWithInfo] = []
     var cancellables = Set<AnyCancellable>()
 
-    var data: [RSSItemWithInfo] = []
+    var tableView: UITableView?
+    let search = UISearchController(searchResultsController: nil).then {
+        $0.searchBar.searchTextField.placeholder = "search.searchBar.placeholder".localize()
+        $0.obscuresBackgroundDuringPresentation = false
+        $0.hidesNavigationBarDuringPresentation = false
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "search.title".localize()
+
         setupUI()
         bindViewModel()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        search.searchBar.becomeFirstResponder()
     }
 
     func setupUI() {
         view.backgroundColor = .systemGray2
         addTableView()
+        addSearch()
     }
 
     func addTableView() {
@@ -45,6 +57,12 @@ class FeedViewController: UIViewController {
         }
     }
 
+    func addSearch() {
+        search.searchBar.delegate = self
+        navigationItem.searchController = search
+        navigationItem.hidesSearchBarWhenScrolling = false
+    }
+
     func registrCollectionViewNibs() {
         tableView?.register(SmallArticleTableViewCell.self)
         tableView?.register(MediumArticleTableViewCell.self)
@@ -53,7 +71,7 @@ class FeedViewController: UIViewController {
 
     func bindViewModel() {
         let output = viewModel.transform()
-        
+
         output.reloadPublisher
             .sink { [unowned self] in
                 tableView?.reloadData()
@@ -68,7 +86,7 @@ class FeedViewController: UIViewController {
     }
 }
 
-extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
+extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.numberOfItems()
@@ -120,4 +138,15 @@ extension FeedViewController: UITableViewDelegate, UITableViewDataSource {
         viewModel.openWeb(for: item.item)
     }
 
+}
+
+extension SearchViewController: UISearchBarDelegate {
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.searchForFeed(with: "")
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchForFeed(with: searchText)
+    }
 }

@@ -130,11 +130,10 @@ class RealmService: RealmServiceProtocol {
     }
 
     func markAsBookmaked(_ updatedItem: RealmRSSFeedItem) {
-        guard let feedItem = realm?.object(ofType: RealmRSSFeedItem.self, forPrimaryKey: updatedItem.id) else { return }
         fprint("Bookmarking feed item", type: .realm)
         do {
             try realm?.write {
-                feedItem.isFavorite = !updatedItem.isFavorite
+                updatedItem.isFavorite = !updatedItem.isFavorite
             }
         } catch {
             fprint("Realm write error = \(error)", type: .realm, isError: true)
@@ -142,11 +141,10 @@ class RealmService: RealmServiceProtocol {
     }
 
     func markAsRead(_ updatedItem: RealmRSSFeedItem) {
-        guard let feedItem = realm?.object(ofType: RealmRSSFeedItem.self, forPrimaryKey: updatedItem.id) else { return }
         fprint("Bookmarking feed item", type: .realm)
         do {
             try realm?.write {
-                feedItem.readDate = Date()
+                updatedItem.readDate = Date()
             }
         } catch {
             fprint("Realm write error = \(error)", type: .realm, isError: true)

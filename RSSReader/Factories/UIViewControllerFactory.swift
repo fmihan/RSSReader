@@ -36,4 +36,12 @@ class UIViewControllerFactory {
         return viewController
     }
 
+    static func createSearchViewController(coordinator: SearchCoordinator) -> SearchViewController {
+        let viewController = SearchViewController()
+        let viewModel = SearchViewModel(feedService: dependencies.feedService)
+        viewModel.coordinator = coordinator
+        viewController.viewModel = viewModel
+        return viewController
+    }
+
 }

@@ -1,14 +1,14 @@
 //
-//  FeedViewModel.swift
+//  SearchViewModel.swift
 //  RSSReader
 //
-//  Created by Fabijan Mihanović on 31.01.2024..
+//  Created by Fabijan Mihanović on 02.02.2024..
 //
 
+import UIKit
 import Combine
-import Foundation
 
-class FeedViewModel: HasFeedService {
+class SearchViewModel: HasFeedService {
 
     struct Output {
         let reloadPublisher: AnyPublisher<Void, Never>
@@ -20,18 +20,15 @@ class FeedViewModel: HasFeedService {
         let reloadRow = PassthroughSubject<IndexPath, Never>()
     }
 
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: SearchCoordinator?
     var cancellables = Set<AnyCancellable>()
 
     var feedService: FeedServiceProtocol
     var feed: [RSSItemWithInfo] = []
     var subjects = Subjects()
 
-    var publisherId: String?
-
-    init(feedService: FeedServiceProtocol, specifiedProviderId: String? = nil) {
+    init(feedService: FeedServiceProtocol) {
         self.feedService = feedService
-        self.publisherId = specifiedProviderId
 
         observeFeedService()
         loadStoredFeed()
@@ -44,9 +41,20 @@ class FeedViewModel: HasFeedService {
         )
     }
 
+    func searchForFeed(with searchText: String) {
+        if searchText.isEmpty {
+            loadStoredFeed()
+        } else {
+            queryForFeed(with: searchText)
+        }
+    }
+
     func observeFeedService() {
         feedService.refreshViewsPublisher
-            .subscribe(subjects.reload)
+            .sink(receiveValue: { [unowned self] _ in
+                loadStoredFeed()
+                subjects.reload.send()
+            })
             .store(in: &cancellables)
 
         feedService.updatedItemPublisher
@@ -63,7 +71,16 @@ class FeedViewModel: HasFeedService {
     }
 
     func loadStoredFeed() {
-        feedService.fetchFeed(withPublisherId: publisherId)
+        feedService.fetchFeed(withPublisherId: nil)
+            .sink { [unowned self] storageFeed in
+                self.feed = storageFeed
+                self.subjects.reload.send()
+            }
+            .store(in: &cancellables)
+    }
+
+    func queryForFeed(with text: String) {
+        feedService.searchFor(text)
             .sink { [unowned self] storageFeed in
                 self.feed = storageFeed
                 self.subjects.reload.send()
@@ -88,7 +105,7 @@ class FeedViewModel: HasFeedService {
     }
 }
 
-extension FeedViewModel {
+extension SearchViewModel {
 
     func numberOfItems() -> Int {
         feed.count
