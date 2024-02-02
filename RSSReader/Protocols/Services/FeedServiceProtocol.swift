@@ -11,12 +11,10 @@ import Foundation
 protocol FeedServiceProtocol {
     // MARK: - Publihsers
     var refreshViewsPublisher: AnyPublisher<Void, Never> { get }
-    var isRefreshingPublisher: AnyPublisher<Bool, Never> { get }
     var updatedItemPublisher: AnyPublisher<RealmRSSFeedItem, Never> { get }
     var subscibedPortalsPublisher: AnyPublisher<[RealmRSSFeed], Never> { get }
 
     // MARK: - Network Calls
-    func refreshFeed()
     func addNewFeed(with url: String)
 
     // MARK: - Local queries

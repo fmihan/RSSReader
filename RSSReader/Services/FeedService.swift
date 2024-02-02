@@ -5,15 +5,11 @@
 //  Created by Fabijan Mihanović on 31.01.2024..
 //
 
+import FeedKit
 import Combine
 import Foundation
 
 class FeedService: FeedServiceProtocol {
-
-    private var isRefreshingSubject = PassthroughSubject<Bool, Never>()
-    var isRefreshingPublisher: AnyPublisher<Bool, Never> {
-        isRefreshingSubject.eraseToAnyPublisher()
-    }
 
     private var refreshViewsSubject = PassthroughSubject<Void, Never>()
     var refreshViewsPublisher: AnyPublisher<Void, Never> {
@@ -41,6 +37,7 @@ class FeedService: FeedServiceProtocol {
         self.api = api
 
         loadPublishers()
+        fetchAndUpdateAllFeeds()
     }
 
     func loadPublishers() {
@@ -48,12 +45,6 @@ class FeedService: FeedServiceProtocol {
         let publishers = Array(storedPublishers)
         rssPublishers = publishers
         subscibedPortalsSubject.send(publishers)
-    }
-
-    // MARK: - Network Calls
-    func refreshFeed() {
-        isRefreshingSubject.send(true)
-
     }
 
     func refreshViews() {
@@ -71,11 +62,33 @@ class FeedService: FeedServiceProtocol {
                     fprint("Error occured while fetching RSS feed with url: \(url). Error: \(failure)", type: .apiCallError, isError: true)
                 }
             }, receiveValue: { [unowned self] response in
-                dump(response.items?.first)
-                realm.manageData(from: response)
+                realm.manageData(from: response, enteredLink: url)
                 refreshViews()
             })
             .store(in: &cancellables)
+    }
+
+    func fetchAndUpdateAllFeeds() {
+        var count: Int = 1
+        rssPublishers.forEach { publisher in
+            api.fetchRSS(with: publisher.enteredLink)
+                .receive(on: DispatchQueue.main)
+                .sink(receiveCompletion: { [unowned self] value in
+                    switch value {
+                    case .finished:
+                        fprint("Successfully fetched data for feed", type: .apiResponse)
+                    case .failure(let failure):
+                        fprint("Error occured while fetching RSS feed. Error: \(failure)", type: .apiCallError, isError: true)
+                    }
+                    count += 1
+                    if count == rssPublishers.count {
+                        refreshViews()
+                    }
+                }, receiveValue: { [unowned self] response in
+                    realm.manageData(from: response, enteredLink: publisher.enteredLink)
+                })
+                .store(in: &cancellables)
+        }
     }
 
     // MARK: - Local queries

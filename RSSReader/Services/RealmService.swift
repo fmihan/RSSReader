@@ -15,10 +15,11 @@ class RealmService: RealmServiceProtocol {
 
     init() {
         let groupName = "com.personal.fm.RSSReader"
+        let realmFileName = "default.realm"
 
         do {
             if let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: groupName) {
-                let realmURL = containerURL.appendingPathComponent("default.realm")
+                let realmURL = containerURL.appendingPathComponent(realmFileName)
                 let config = Realm.Configuration(fileURL: realmURL)
                 realm = try Realm(configuration: config)
             }
@@ -28,7 +29,7 @@ class RealmService: RealmServiceProtocol {
     }
 
     // MARK: - FeedKit Mappers
-    func manageData(from rssFeed: RSSFeed) {
+    func manageData(from rssFeed: RSSFeed, enteredLink: String) {
         guard let publisherLink = rssFeed.link, let existingPublishers = getPublishers() else {
             return
         }
@@ -37,7 +38,7 @@ class RealmService: RealmServiceProtocol {
         let filteredPublishers = existingPublishers.filter("link == %@", publisherLink)
 
         if existingPublishers.isEmpty || filteredPublishers.isEmpty {
-            publisherId = createNewPublisher(via: rssFeed)
+            publisherId = createNewPublisher(via: rssFeed, enteredLink: enteredLink)
         } else if let existingPublisherId = filteredPublishers.first?.id {
             publisherId = existingPublisherId
         }
@@ -60,8 +61,9 @@ class RealmService: RealmServiceProtocol {
         }
     }
 
-    private func createNewPublisher(via rssFeed: RSSFeed) -> String {
+    private func createNewPublisher(via rssFeed: RSSFeed, enteredLink: String) -> String {
         let newPublisher = RealmRSSFeed()
+        newPublisher.enteredLink = enteredLink
         newPublisher.assignValues(from: rssFeed)
         savePublisher(newPublisher)
         return newPublisher.id
@@ -166,7 +168,7 @@ class RealmService: RealmServiceProtocol {
     // MARK: - UI Representable Data
 
     func getReadItems() -> [RSSItemWithInfo] {
-        return mapToRSSItemWithInfo(feedItems: loadFeed()?.filter("readDate != null"), publishers: getPublishers())
+        return mapToRSSItemWithInfo(feedItems: loadFeed()?.filter("readDate != nill"), publishers: getPublishers())
     }
 
     func getBookmarkedItems() -> [RSSItemWithInfo] {

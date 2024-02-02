@@ -13,7 +13,7 @@ import Foundation
 protocol RealmServiceProtocol {
 
     // MARK: - FeedKit Mappers
-    func manageData(from rssFeed: RSSFeed)
+    func manageData(from rssFeed: RSSFeed, enteredLink: String)
 
     // MARK: - Publisher Managers
     func getPublishers() -> Results<RealmRSSFeed>?
