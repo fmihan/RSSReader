@@ -136,8 +136,7 @@ class AddRSSViewController: UIViewController {
 
     private func validateRSSFormat() -> UIContentConfiguration {
         var invalidRSS = UIContentUnavailableConfiguration.empty()
-        invalidRSS.image = UIImage(systemName: "questionmark.square.fill")
-        invalidRSS.imageProperties.tintColor = .systemRed
+        invalidRSS.image = UIImage(systemName: "link")
         invalidRSS.text = "no.results.add.rss.empty".localize()
         invalidRSS.secondaryText = "no.results.add.rss.empty.description".localize()
         return invalidRSS
