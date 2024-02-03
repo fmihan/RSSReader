@@ -7,7 +7,15 @@
 
 import Foundation
 
+extension String? {
+    var isNilOrEmpty: Bool {
+        guard let self else { return true }
+        return self.isEmpty
+    }
+}
+
 extension String {
+
     func localize() -> String {
         return NSLocalizedString(self, comment: "")
     }

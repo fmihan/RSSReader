@@ -5,9 +5,9 @@
 //  Created by Fabijan Mihanović on 02.02.2024..
 //
 
+import UIKit
 import FeedKit
 import Combine
-import Foundation
 
 class AddRSSViewModel: HasRSSReaderApi, HasFeedService {
 
@@ -59,7 +59,7 @@ class AddRSSViewModel: HasRSSReaderApi, HasFeedService {
         publisher
             .debounce(for: 0.5, scheduler: RunLoop.main)
             .sink { [unowned self] value in
-                guard let url = preapendHTTPSchemeIfNeeded(value) else {
+                guard !value.isNilOrEmpty, let url = preapendHTTPSchemeIfNeeded(value) else {
                     removeData()
                     return
                 }

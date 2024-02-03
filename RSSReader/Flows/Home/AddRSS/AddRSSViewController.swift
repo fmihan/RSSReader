@@ -142,6 +142,12 @@ class AddRSSViewController: UIViewController {
         return invalidRSS
     }
 
+    func requestRemovalOfContentConfoguration() {
+        animateButton(isHidden: true)
+        contentUnavailableConfiguration = nil
+        setNeedsUpdateContentUnavailableConfiguration()
+    }
+
 }
 
 extension AddRSSViewController: UITableViewDataSource, UITableViewDelegate {
@@ -179,9 +185,14 @@ extension AddRSSViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchTextSubject.send(nil)
+        requestRemovalOfContentConfoguration()
     }
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else {
+            requestRemovalOfContentConfoguration()
+            return
+        }
         searchTextSubject.send(searchText)
     }
 }

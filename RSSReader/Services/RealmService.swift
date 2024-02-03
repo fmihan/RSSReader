@@ -168,7 +168,12 @@ class RealmService: RealmServiceProtocol {
     // MARK: - UI Representable Data
 
     func getReadItems() -> [RSSItemWithInfo] {
-        return mapToRSSItemWithInfo(feedItems: loadFeed()?.filter("readDate != null"), publishers: getPublishers())
+        return mapToRSSItemWithInfo(
+            feedItems: loadFeed()?
+                        .filter("readDate != null")
+                        .sorted(byKeyPath: "readDate", ascending: false),
+            publishers: getPublishers()
+        )
     }
 
     func getBookmarkedItems() -> [RSSItemWithInfo] {
@@ -190,10 +195,8 @@ class RealmService: RealmServiceProtocol {
     private func mapToRSSItemWithInfo(feedItems: Results<RealmRSSFeedItem>?, publishers: Results<RealmRSSFeed>?) -> [RSSItemWithInfo] {
         guard let feedItems = feedItems, let publishers = publishers else { return [] }
 
-        let sortedFeedItems = feedItems.sorted(byKeyPath: "readDate", ascending: false)
-
         var items: [RSSItemWithInfo] = []
-        for feedItem in sortedFeedItems {
+        for feedItem in feedItems {
             guard let publisher = publishers.first(where: { $0.id == feedItem.publisherId }) else { continue }
             items.append(RSSItemWithInfo(publisher: publisher, item: feedItem))
         }
