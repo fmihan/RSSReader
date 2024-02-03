@@ -51,6 +51,11 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         font: .systemFont(ofSize: 10, weight: .medium)
     )
 
+    let overlayView = UIView().then {
+        $0.isUserInteractionEnabled = false
+        $0.backgroundColor = .systemGray.withAlphaComponent(0.3)
+    }
+
     let ellipsisButton = UIButton().then {
         $0.setShadow()
         $0.tintColor = .white
@@ -82,6 +87,7 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
             }
 
             category.text = article.item?.firstCategoryName
+            overlayView.isHidden = article.item?.readDate == nil
             categoryContainer.isHidden = article.item?.hasCategories == false
 
             let imageName: String = article.item?.isFavorite == true ? "bookmark.fill" : "bookmark"
@@ -112,6 +118,7 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         contentView.addSubview(source)
         contentView.addSubview(sourceImage)
         contentView.addSubview(categoryContainer)
+        contentView.addSubview(overlayView)
         contentView.addSubview(ellipsisButton)
         contentView.addSubview(bookmarkButton)
         categoryContainer.addSubview(category)
@@ -125,6 +132,10 @@ class LargeNewsArticleTableViewCell: UITableViewCell {
         image.snp.makeConstraints { make in
             make.edges.equalToSuperview()
             make.height.equalTo(230).priority(999)
+        }
+
+        overlayView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
 
         gradient.snp.makeConstraints { make in

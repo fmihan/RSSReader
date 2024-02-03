@@ -57,6 +57,11 @@ class SmallArticleTableViewCell: UITableViewCell {
         $0.setImage(UIImage(systemName: "bookmark"), for: .normal)
     }
 
+    let overlayView = UIView().then {
+        $0.isUserInteractionEnabled = false
+        $0.backgroundColor = .systemGray.withAlphaComponent(0.15)
+    }
+
     var bookmarkAction: (() -> Void)?
     var ellipsisAction: (() -> Void)?
 
@@ -73,6 +78,7 @@ class SmallArticleTableViewCell: UITableViewCell {
             }
 
             category.text = article.item?.firstCategoryName
+            overlayView.isHidden = article.item?.readDate == nil
             categoryContainer.isHidden = article.item?.hasCategories == false
             
             let imageName: String = article.item?.isFavorite == true ? "bookmark.fill" : "bookmark"
@@ -114,6 +120,7 @@ class SmallArticleTableViewCell: UITableViewCell {
         contentView.addSubview(hStack)
         contentView.addSubview(ellipsisButton)
         contentView.addSubview(categoryContainer)
+        contentView.addSubview(overlayView)
         contentView.addSubview(ellipsisButton)
         contentView.addSubview(bookmarkButton)
 
@@ -137,6 +144,10 @@ class SmallArticleTableViewCell: UITableViewCell {
         categoryContainer.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
             make.leading.equalToSuperview().offset(8)
+        }
+
+        overlayView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
 
         label.snp.makeConstraints { make in
